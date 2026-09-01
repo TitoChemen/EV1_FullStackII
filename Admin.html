@@ -4,79 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>San Marcos - Panel de Administración</title>
+
+    <!-- BOOTSTRAP CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MATERIALIZE CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- MATERIALIZE ICONS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- BOOTSTRAP ICONS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- CSS EXTERNO -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container mt-4">
-        <header class="d-flex justify-content-between align-items-center mb-4">
-            <h2><i class="material-icons">admin_panel_settings</i> Panel de Recepción y Administración</h2>
-            <button class="btn btn-danger btn-sm" onclick="cerrarSesion()"><i class="bi bi-box-arrow-right"></i> Salir</button>
+    <div class="container mt-3">
+
+        <!-- ===== ENCABEZADO Y NAVEGACIÓN ===== -->
+        <header class="mb-4">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
+                <h1 class="h3 m-0">
+                    <i class="material-icons text-success align-middle">pets</i>
+                    <span id="logo-tienda">Veterinaria San Marcos</span>
+                </h1>
+                <button class="btn btn-outline-danger btn-sm" onclick="cerrarSesion()">
+                    <i class="bi bi-box-arrow-right"></i> Salir
+                </button>
+            </div>
+
+            <!-- MENÚ INTERACTIVO CON TUS NUEVAS SECCIONES -->
+            <nav class="nav nav-pills flex-column flex-sm-row bg-light p-2 rounded shadow-sm">
+                <!-- 1. Inicio (Pestaña Principal) -->
+                <a class="nav-link active" href="index.html">
+                    <i class="bi bi-house-door"></i> Inicio
+                </a>
+                
+                <!-- 2. Quiénes Somos / Contáctanos -->
+                <a class="nav-link text-dark" href="#seccionQuienesSomos">
+                    <i class="bi bi-info-circle"></i> Quiénes Somos / Contacto
+                </a>
+
+                <!-- 3. Productos (Para integrar con el trabajo de tu compañero) -->
+                <a class="nav-link text-dark" href="productos.html" id="navProductos">
+                    <i class="bi bi-shop"></i> Catálogo de Productos
+                </a>
+
+                <!-- 4. Carrito de Compras (Interactiva/Badge para tu compañero) -->
+                <a class="nav-link text-dark position-relative ms-sm-auto" href="carrito.html" id="navCarrito">
+                    <i class="bi bi-cart3"></i> Carrito
+                    <span class="badge bg-success rounded-pill" id="contadorCarrito">0</span>
+                </a>
+            </nav>
         </header>
 
-        <!-- SECCIÓN 1: Solicitudes de Citas -->
-        <section class="mb-5">
-            <h4><i class="bi bi-calendar-check"></i> Agendamiento de Citas veterinarias</h4>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover mt-3">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Dueño </th>
-                            <th>Mascota</th>
-                            <th>Fecha / Hora Solicitada</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaCitas">
-                        <!-- Carga Dinámica desde JS -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        <!-- ===== SECCIÓN DE CINTA DE INFORMACIÓN Y SECCIONES ===== -->
+        <main>
+            <!-- SECCIÓN 1: Solicitudes de Citas Entrantes -->
+            <section class="mb-5">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h4 class="m-0"><i class="bi bi-calendar-check"></i> Gestor de Citas Entrantes</h4>
+                    <span class="badge bg-info text-dark">Módulo Recepción</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover shadow-sm rounded">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Dueño / RUT</th>
+                                <th>Mascota</th>
+                                <th>Fecha/Hora Solicitada</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCitas">
+                            <!-- Carga Dinámica desde JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-        <!-- SECCIÓN 2: Registro de Ficha Clínica -->
-        <section class="card p-4 shadow-sm mb-5">
-            <h4><i class="bi bi-journal-medical"></i> Registrar / Editar Ficha Clínica</h4>
-            <form id="formFichaClinica" novalidate>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label"><i class="bi bi-card-heading"></i> RUT Dueño</label>
-                        <input type="text" class="form-control" id="rutDueno" placeholder="12345678-9">
+            <!-- SECCIÓN 2: Registro de Ficha Clínica -->
+            <section class="card p-4 shadow-sm mb-5">
+                <h4><i class="bi bi-journal-medical"></i> Registrar / Editar Ficha Clínica</h4>
+                <form id="formFichaClinica" novalidate>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><i class="bi bi-card-heading"></i> RUT Dueño</label>
+                            <input type="text" class="form-control" id="rutDueno" placeholder="12345678-9">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><i class="bi bi-heart-pulse"></i> Nombre Mascota</label>
+                            <input type="text" class="form-control" id="nombreMascota">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><i class="bi bi-capsule"></i> Dosis Medicamento (ml/mg)</label>
+                            <input type="number" class="form-control" id="dosisMedicamento" step="0.1" min="0.1">
+                        </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label"><i class="bi bi-heart-pulse"></i> Nombre Mascota</label>
-                        <input type="text" class="form-control" id="nombreMascota">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label"><i class="bi bi-shield-plus"></i> Vacuna Aplicada</label>
+                            <input type="text" class="form-control" id="nombreVacuna">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label"><i class="bi bi-calendar-event"></i> Vencimiento Vacuna</label>
+                            <input type="date" class="form-control" id="fechaVencimiento">
+                        </div>
                     </div>
-                    <div class="col-md-4 mb-3">
-                        <label class="form-label"><i class="bi bi-capsule"></i> Dosis Medicamento (ml/mg)</label>
-                        <input type="number" class="form-control" id="dosisMedicamento" step="0.1" min="0.1">
+
+                    <div id="resultado-validacion-ficha"></div>
+
+                    <button type="button" class="btn btn-primary" onclick="guardarFichaClinica()">
+                        <i class="bi bi-save"></i> Guardar Ficha
+                    </button>
+                </form>
+            </section>
+
+            <!-- SECCIÓN 3: QUIÉNES SOMOS Y CONTEXTO VETERINARIA SAN MARCOS -->
+            <section id="seccionQuienesSomos" class="card p-4 shadow-sm mb-5 bg-light border-start border-success border-4">
+                <h3><i class="bi bi-building"></i> Quiénes Somos - Veterinaria San Marcos</h3>
+                <p class="lead">Atención profesional e integral para mascotas domésticas en la Región del Libertador General Bernardo O'Higgins.</p>
+                
+                <div class="row mt-3">
+                    <div class="col-md-6 mb-3">
+                        <h5><i class="bi bi-clock-history"></i> Nuestra Historia</h5>
+                        <p>Fundada en <strong>2009</strong> en la comuna de Rancagua, Veterinaria San Marcos nació con el propósito de entregar salud y bienestar a perros, gatos, conejos y aves. Con más de 15 años de trayectoria, nos hemos consolidado como un centro médico de referencia clínica en la región.</p>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <h5><i class="bi bi-people"></i> Nuestro Equipo Médico</h5>
+                        <p>Contamos con un equipo permanente compuesto por <strong>3 médicos veterinarios</strong>, <strong>1 técnico veterinario</strong> y <strong>1 recepcionista administrativa</strong>, atendiendo un promedio superior a 25 pacientes diarios con estándares de alta calidad digitalizada.</p>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label"><i class="bi bi-shield-plus"></i> Vacuna Aplicada</label>
-                        <input type="text" class="form-control" id="nombreVacuna">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-geo-alt"></i> Ubicación y Contacto</h5>
+                        <p><i class="bi bi-geo"></i> Rancagua, Región de O'Higgins, Chile<br>
+                        <i class="bi bi-telephone"></i> Fono Atención: +56 72 2 123456<br>
+                        <i class="bi bi-envelope"></i> Contacto: contacto@veterinariasanmarcos.cl</p>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label"><i class="bi bi-calendar-event"></i> Vencimiento Vacuna</label>
-                        <input type="date" class="form-control" id="fechaVencimiento">
+                    <div class="col-md-6">
+                        <h5><i class="bi bi-hospital"></i> Servicios Médicos</h5>
+                        <ul>
+                            <li>Consulta General y Control de Peso</li>
+                            <li>Vacunación y Desparasitación Digitalizada</li>
+                            <li>Cirugía Menor y Fichas Clínicas en Línea</li>
+                        </ul>
                     </div>
                 </div>
+            </section>
+        </main>
 
-                <div id="resultado-validacion-ficha"></div>
-
-                <button type="button" class="btn btn-primary" onclick="guardarFichaClinica()">
-                    <i class="bi bi-save"></i> Guardar Ficha
-                </button>
-            </form>
-        </section>
+        <!-- ===== PIE DE PÁGINA ===== -->
+        <footer class="mt-5 mb-3 text-center text-muted border-top pt-3">
+            <i class="material-icons align-middle">copyright</i>
+            © 2026 - Veterinaria San Marcos - Todos los derechos reservados
+        </footer>
     </div>
 
+    <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/funciones.js"></script>
 </body>
 </html>
