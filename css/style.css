@@ -1,0 +1,276 @@
+/* =============================================
+   ESTILOS BASE - style.css
+   ============================================= */
+
+/* ----- ESTILOS GENERALES ----- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ----- ENCABEZADO ----- */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.1rem;
+    margin: 5px 0 0 0;
+}
+
+#logo-tienda {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+/* ----- MENÚ DE NAVEGACIÓN ----- */
+.nav-menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    margin-top: 15px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    flex-wrap: wrap;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 6px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFD700;
+}
+
+.nav-menu a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #FFD700;
+    font-weight: 600;
+}
+
+.nav-menu a i {
+    font-size: 1.1rem;
+}
+
+/* ----- SECCIONES ----- */
+section {
+    background-color: white;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid #4CAF50;
+    border-radius: 4px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+    color: #2E7D32;
+    font-size: 1.6rem;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 8px;
+}
+
+section h3 {
+    color: #388E3C;
+    font-size: 1.2rem;
+    margin-top: 15px;
+}
+
+/* ----- DESTACADO ----- */
+.destacado {
+    background-color: #FFF3E0;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+/* ----- IMÁGENES ----- */
+section img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    margin: 10px 0;
+    display: block;
+}
+
+/* ----- PIE DE PÁGINA ----- */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    margin-top: 20px;
+}
+
+/* ----- PROMOCIÓN ----- */
+.promocion {
+    background-color: #00BCD4;
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* ----- BADGES PARA ESTADOS ----- */
+.badge-estado {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.badge-estado.entregado { background-color: #4CAF50; color: white; }
+.badge-estado.pendiente { background-color: #FF9800; color: white; }
+.badge-estado.procesando { background-color: #2196F3; color: white; }
+.badge-estado.cancelado { background-color: #f44336; color: white; }
+
+.badge-pago {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.badge-pago.pagado { background-color: #4CAF50; color: white; }
+.badge-pago.pendiente { background-color: #FF9800; color: white; }
+
+/* ----- FORMULARIO ----- */
+.form-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.form-control:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.85rem;
+    display: block;
+    margin-top: 5px;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 4px;
+    border-left: 4px solid #dc3545;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 4px;
+    border-left: 4px solid #28a745;
+}
+
+.btn-enviar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-enviar:hover {
+    background-color: #388E3C;
+}
+
+.btn-limpiar {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-limpiar:hover {
+    background-color: #5a6268;
+}
+
+/* ----- RESPONSIVE ----- */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+        margin: 10px auto;
+    }
+    header h1 {
+        font-size: 1.8rem;
+    }
+    section {
+        padding: 10px 15px;
+    }
+    section img {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    header h1 {
+        font-size: 1.4rem;
+    }
+    .container {
+        width: 98%;
+        padding: 5px;
+        margin: 5px auto;
+    }
+    .nav-menu {
+        gap: 8px;
+    }
+    .nav-menu a {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+    .btn-enviar, .btn-limpiar {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
