@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Marcos - Panel de Administración</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <header class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="material-icons">admin_panel_settings</i> Panel de Recepción y Administración</h2>
+            <button class="btn btn-danger btn-sm" onclick="cerrarSesion()"><i class="bi bi-box-arrow-right"></i> Salir</button>
+        </header>
+
+        <!-- SECCIÓN 1: Solicitudes de Citas -->
+        <section class="mb-5">
+            <h4><i class="bi bi-calendar-check"></i> Agendamiento de Citas veterinarias</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mt-3">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Dueño </th>
+                            <th>Mascota</th>
+                            <th>Fecha / Hora Solicitada</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaCitas">
+                        <!-- Carga Dinámica desde JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: Registro de Ficha Clínica -->
+        <section class="card p-4 shadow-sm mb-5">
+            <h4><i class="bi bi-journal-medical"></i> Registrar / Editar Ficha Clínica</h4>
+            <form id="formFichaClinica" novalidate>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label"><i class="bi bi-card-heading"></i> RUT Dueño</label>
+                        <input type="text" class="form-control" id="rutDueno" placeholder="12345678-9">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label"><i class="bi bi-heart-pulse"></i> Nombre Mascota</label>
+                        <input type="text" class="form-control" id="nombreMascota">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label"><i class="bi bi-capsule"></i> Dosis Medicamento (ml/mg)</label>
+                        <input type="number" class="form-control" id="dosisMedicamento" step="0.1" min="0.1">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-shield-plus"></i> Vacuna Aplicada</label>
+                        <input type="text" class="form-control" id="nombreVacuna">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-calendar-event"></i> Vencimiento Vacuna</label>
+                        <input type="date" class="form-control" id="fechaVencimiento">
+                    </div>
+                </div>
+
+                <div id="resultado-validacion-ficha"></div>
+
+                <button type="button" class="btn btn-primary" onclick="guardarFichaClinica()">
+                    <i class="bi bi-save"></i> Guardar Ficha
+                </button>
+            </form>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/funciones.js"></script>
+</body>
+</html>
