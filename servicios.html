@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria San Marcos - Detalle del Servicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <div class="container my-5">
+        <a href="listaServicios.html" class="btn btn-outline-light mb-4">&larr; Volver al Catálogo</a>
+        
+        <div class="row card flex-row p-4 shadow-lg rounded" id="detalle-contenedor">
+            <!-- Carga dinámica mediante JS -->
+        </div>
+    </div>
+
+    <script src="js/servicios.js"></script>
+    <script src="js/carrito.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const idParam = params.get("id");
+            const id = parseInt(idParam);
+
+            const contenedor = document.getElementById("detalle-contenedor");
+
+            if (typeof listaServicios !== "undefined" && !isNaN(id)) {
+                const servicio = listaServicios.find(s => s.id === id);
+
+                if (servicio) {
+                    contenedor.innerHTML = `
+                        <div class="col-md-6 text-center mb-3 mb-md-0 p-2">
+                            <img src="${servicio.imagen}" class="img-fluid rounded shadow" alt="${servicio.nombre}">
+                        </div>
+                        <div class="col-md-6 d-flex flex-column justify-content-center p-3">
+                            <span class="badge bg-warning text-dark w-auto mb-2 align-self-start">${servicio.categoria}</span>
+                            <h2 class="text-warning">${servicio.nombre}</h2>
+                            <h3 class="text-light my-3">$${servicio.precio.toLocaleString('es-CL')}</h3>
+                            <p class="lead text-muted">${servicio.descripcion}</p>
+                            <button onclick="agregarAlCarrito(${servicio.id})" class="btn btn-reserva btn-lg mt-3">
+                                <i class="bi bi-calendar-plus"></i> Agendar Cita para este Servicio
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+            }
+
+            contenedor.innerHTML = `
+                <div class="col-12 text-center text-danger py-5">
+                    <h3 class="fw-bold mb-3">Servicio no encontrado</h3>
+                    <a href="listaServicios.html" class="btn btn-dulce btn-sm">Volver a la lista de servicios</a>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

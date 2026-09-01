@@ -1,0 +1,68 @@
+/* css/estilos.css - Caramel & Dulce de Leche Edition */
+
+:root {
+    --bg-caramel: linear-gradient(135deg, #2b1a17 0%, #3d2520 50%, #1c100e 100%);
+    --card-bg: rgba(58, 38, 34, 0.75);
+    --card-border: rgba(224, 159, 102, 0.2);
+    --text-main: #fbf8f5;
+    --text-muted: #d6beaa;
+    --dulce-de-leche: #d97706; /* Tono Dulce de Leche brillante */
+    --dulce-hover: #b45309;
+    --caramel-accent: #f59e0b; /* Dorado/Caramelo para destacados */
+    --botton-green: #15803d;
+    --botton-green-hover: #166534;
+}
+
+/* Fondo de pantalla cálido estilo café gourmet */
+body {
+    background: var(--bg-caramel);
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text-main);
+}
+
+/* Estilos de Tarjetas */
+.card {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    backdrop-filter: blur(5px);
+    color: var(--text-main) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-title {
+    color: var(--caramel-accent);
+}
+
+.card-text {
+    color: var(--text-muted) !important;
+}
+
+/* Botones personalizados */
+.btn-dulce {
+    background-color: var(--dulce-de-leche);
+    color: #ffffff;
+    border: none;
+}
+
+.btn-dulce:hover {
+    background-color: var(--dulce-hover);
+    color: #ffffff;
+}
+
+.btn-reserva {
+    background-color: var(--botton-green);
+    color: #ffffff;
+    border: none;
+}
+
+.btn-reserva:hover {
+    background-color: var(--botton-green-hover);
+    color: #ffffff;
+}
