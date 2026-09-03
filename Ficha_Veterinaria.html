@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Marcos - Fichas Clínicas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== NAVBAR RESPONSIVE ===== -->
+    <nav class="navbar navbar-expand-md navbar-sanmarcos sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="admin.html">
+                <i class="material-icons">pets</i> Veterinaria San Marcos
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navPrincipal">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navPrincipal">
+                <ul class="navbar-nav me-auto mt-2 mt-md-0">
+                    <li class="nav-item"><a class="nav-link" href="admin.html"><i class="bi bi-calendar-check"></i> Citas</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="ficha-veterinaria.html"><i class="bi bi-journal-medical"></i> Fichas clínicas</a></li>
+                    <li class="nav-item solo-administrador"><a class="nav-link" href="usuarios.html"><i class="bi bi-people"></i> Usuarios</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
+                    <span class="chip-rol"><span id="nombreUsuarioActivo"></span> · <span id="chipRolActivo"></span></span>
+                    <button class="btn btn-peligro-out btn-sm" onclick="cerrarSesion()">
+                        <i class="bi bi-box-arrow-right"></i> Salir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container contenedor-ancho py-4">
+        <div class="encabezado-seccion">
+            <h4><i class="bi bi-journal-medical"></i> Fichas clínicas de pacientes</h4>
+            <span class="etiqueta-modulo">Registro y edición</span>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- ===== COLUMNA 1: Búsqueda y listado de pacientes ===== -->
+            <div class="col-lg-4">
+                <div class="card p-3 mb-3">
+                    <label class="form-label"><i class="bi bi-search"></i> Buscar paciente</label>
+                    <input type="text" class="form-control" id="buscarPaciente" placeholder="Nombre de mascota, dueño o RUT">
+                    <button class="btn btn-primario w-100 mt-3" onclick="nuevoPaciente()">
+                        <i class="bi bi-plus-lg"></i> Nuevo paciente
+                    </button>
+                </div>
+                <div class="list-group shadow-sm" id="listaPacientes"></div>
+            </div>
+
+            <!-- ===== COLUMNA 2: Ficha del paciente seleccionado ===== -->
+            <div class="col-lg-8">
+
+                <div id="panelPacienteVacio" class="card estado-vacio">
+                    <i class="bi bi-clipboard2-pulse"></i>
+                    Selecciona un paciente de la lista o crea uno nuevo para ver y editar su ficha.
+                </div>
+
+                <div id="panelPacienteDatos" class="d-none">
+
+                    <!-- Datos básicos de la mascota -->
+                    <div class="panel-paciente mb-4">
+                        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+                            <span class="nombre-mascota" id="nombreMascotaPanel">Paciente</span>
+                            <span class="etiqueta-modulo">Datos generales</span>
+                        </div>
+                        <form id="formDatosPaciente" novalidate>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nombre de la mascota</label>
+                                    <input type="text" class="form-control" id="fpNombreMascota">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Especie</label>
+                                    <select class="form-select" id="fpEspecie">
+                                        <option value="">Selecciona</option>
+                                        <option>Perro</option>
+                                        <option>Gato</option>
+                                        <option>Conejo</option>
+                                        <option>Ave</option>
+                                        <option>Otro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Raza</label>
+                                    <input type="text" class="form-control" id="fpRaza">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Fecha de nacimiento</label>
+                                    <input type="date" class="form-control" id="fpFechaNacimiento">
+                                </div>
+                                <div class="col-md-5 mb-3">
+                                    <label class="form-label">Nombre del dueño</label>
+                                    <input type="text" class="form-control" id="fpDuenoNombre">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">RUT del dueño</label>
+                                    <input type="text" class="form-control" id="fpDuenoRut" placeholder="12345678-9">
+                                </div>
+                            </div>
+                            <div id="resultado-validacion-ficha"></div>
+                            <button type="button" class="btn btn-primario mt-2" onclick="guardarDatosPaciente()">
+                                <i class="bi bi-save"></i> Guardar ficha
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Diagnósticos -->
+                    <div class="card p-3 mb-4">
+                        <h5><i class="bi bi-clipboard2-pulse"></i> Diagnósticos y tratamientos</h5>
+                        <div class="table-responsive mb-3">
+                            <table class="table tabla-sanmarcos mb-0">
+                                <thead><tr><th>Fecha</th><th>Diagnóstico / motivo</th><th>Tratamiento</th><th>Medicamento y dosis</th></tr></thead>
+                                <tbody id="tablaDiagnosticos"></tbody>
+                            </table>
+                        </div>
+
+                        <form id="formDiagnostico" class="border-top pt-3" novalidate>
+                            <p class="form-text-ayuda mb-2"><i class="bi bi-plus-circle"></i> Agregar nuevo diagnóstico</p>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Fecha consulta</label>
+                                    <input type="date" class="form-control" id="dxFecha">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Motivo</label>
+                                    <input type="text" class="form-control" id="dxMotivo">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Medicamento</label>
+                                    <input type="text" class="form-control" id="dxMedicamento" placeholder="Opcional">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label class="form-label">Dosis (ml/mg)</label>
+                                    <input type="number" step="0.1" min="0.1" class="form-control" id="dxDosis">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Diagnóstico</label>
+                                <input type="text" class="form-control" id="dxDiagnostico">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tratamiento indicado</label>
+                                <input type="text" class="form-control" id="dxTratamiento">
+                            </div>
+                            <div id="resultado-validacion-diagnostico"></div>
+                            <button type="button" class="btn btn-secundario mt-2" onclick="agregarDiagnostico()">
+                                <i class="bi bi-plus-lg"></i> Registrar diagnóstico
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Vacunas -->
+                    <div class="card p-3 mb-4">
+                        <h5><i class="bi bi-shield-plus"></i> Historial de vacunación</h5>
+                        <div class="table-responsive mb-3">
+                            <table class="table tabla-sanmarcos mb-0">
+                                <thead><tr><th>Vacuna</th><th>Fecha aplicación</th><th>Fecha vencimiento</th><th>Estado</th></tr></thead>
+                                <tbody id="tablaVacunas"></tbody>
+                            </table>
+                        </div>
+
+                        <form id="formVacuna" class="border-top pt-3" novalidate>
+                            <p class="form-text-ayuda mb-2"><i class="bi bi-plus-circle"></i> Agregar vacuna aplicada</p>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Nombre de la vacuna</label>
+                                    <input type="text" class="form-control" id="vacNombre">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Fecha de aplicación</label>
+                                    <input type="date" class="form-control" id="vacFechaAplicacion">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Fecha de vencimiento</label>
+                                    <input type="date" class="form-control" id="vacFechaVencimiento">
+                                </div>
+                            </div>
+                            <div id="resultado-validacion-vacuna"></div>
+                            <button type="button" class="btn btn-secundario mt-2" onclick="agregarVacuna()">
+                                <i class="bi bi-plus-lg"></i> Registrar vacuna
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="pie-sanmarcos text-center py-4">
+        © 2026 Veterinaria San Marcos — Todos los derechos reservados
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/funciones.js"></script>
+</body>
+</html>
