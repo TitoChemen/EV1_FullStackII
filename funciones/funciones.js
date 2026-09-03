@@ -1,8 +1,8 @@
-
+// ==========================================
 // 1. FUNCIONES AUXILIARES DE VALIDACIÓN
+// ==========================================
 
-
-// Algoritmo para verificar el RUT
+// Algoritmo para verificar el RUT chileno
 function validarRut(rut) {
     if (!rut) return false;
     rut = rut.replace(/\./g, '').replace('-', '').trim().toUpperCase();
@@ -28,11 +28,11 @@ function validarRut(rut) {
 }
 
 
-
+// ==========================================
 // 2. MÓDULO DE AUTENTICACIÓN Y REGISTRO
+// ==========================================
 
-
-// Validar inicio de sesión
+// Manejar Inicio de Sesión (Login)
 function manejarLogin() {
     const email = $('#loginEmail').val().trim();
     const pass = $('#loginPass').val();
@@ -40,7 +40,6 @@ function manejarLogin() {
     
     contenedorError.html('');
 
-    // Requisito de contraseña: al menos 8 caracteres, letras y números
     const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     if (!email || !pass) {
@@ -53,18 +52,34 @@ function manejarLogin() {
         return;
     }
 
-    // Determinar destino según el correo del usuario
+    // Buscar si el usuario fue registrado en localStorage
+    let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_registrados')) || [];
+    let usuarioEncontrado = usuariosGuardados.find(u => u.email === email && u.pass === pass);
+
     let paginaDestino = 'usuarios.html';
 
-    if (email === 'admin@sanmarcos.cl') {
-        paginaDestino = 'admin.html';
-    } else if (email === 'veterinario@sanmarcos.cl') {
-        paginaDestino = 'ficha_veterinaria.html';
-    } else if (email === 'recepcion@sanmarcos.cl') {
-        paginaDestino = 'usuarios.html';
+    if (usuarioEncontrado) {
+        if (usuarioEncontrado.rol === 'admin' || usuarioEncontrado.rol === 'Administrador') {
+            paginaDestino = 'admin.html';
+        } else if (usuarioEncontrado.rol === 'veterinario' || usuarioEncontrado.rol === 'Veterinario') {
+            paginaDestino = 'ficha_veterinaria.html';
+        } else {
+            paginaDestino = 'usuarios.html';
+        }
+    } else {
+        // Redirección para cuentas demo
+        if (email === 'admin@sanmarcos.cl') {
+            paginaDestino = 'admin.html';
+        } else if (email === 'veterinario@sanmarcos.cl') {
+            paginaDestino = 'ficha_veterinaria.html';
+        } else if (email === 'recepcion@sanmarcos.cl') {
+            paginaDestino = 'usuarios.html';
+        }
     }
 
-    // Mensaje de éxito y redirección
+    // Guardar usuario en sesión activa
+    localStorage.setItem('usuarioSesion', JSON.stringify({ email: email }));
+
     contenedorError.html('<div class="alert alert-success"><i class="bi bi-check-circle"></i> Acceso exitoso. Redireccionando...</div>');
 
     setTimeout(() => {
@@ -72,9 +87,7 @@ function manejarLogin() {
     }, 1000);
 }
 
-
-
-// Validar Formulario de Registro
+// Validar y Guardar Registro de Usuario
 function validarRegistro() {
     const nombre = $('#regNombre').val().trim();
     const rut = $('#regRut').val().trim();
@@ -86,37 +99,44 @@ function validarRegistro() {
 
     contenedor.html('');
 
-    // 1. Validar Campos Vacíos
     if (!nombre || !rut || !email || !rol || !pass || !passConfirm) {
         contenedor.html('<div class="alert alert-danger"><i class="bi bi-exclamation-triangle"></i> Todos los campos son obligatorios.</div>');
         return;
     }
 
-    // 2. Validar RUT
     if (!validarRut(rut)) {
         contenedor.html('<div class="alert alert-danger"><i class="bi bi-card-heading"></i> El RUT ingresado no es válido (ejemplo de formato correcto: 12345678-9).</div>');
         return;
     }
 
-    // 3. Validar Email
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regexEmail.test(email)) {
         contenedor.html('<div class="alert alert-danger"><i class="bi bi-envelope-exclamation"></i> Ingrese un formato de correo electrónico válido.</div>');
         return;
     }
 
-    // 4. Validar Contraseña
     const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!regexPass.test(pass)) {
         contenedor.html('<div class="alert alert-warning"><i class="bi bi-shield-slash"></i> La contraseña debe tener al menos 8 caracteres, incluyendo letras y números.</div>');
         return;
     }
 
-    // 5. Coincidencia de contraseñas
     if (pass !== passConfirm) {
         contenedor.html('<div class="alert alert-danger"><i class="bi bi-lock"></i> Las contraseñas no coinciden.</div>');
         return;
     }
+
+    // Guardar en localStorage
+    let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_registrados')) || [];
+    
+    if (usuariosGuardados.some(u => u.email === email)) {
+        contenedor.html('<div class="alert alert-warning"><i class="bi bi-exclamation-triangle"></i> El correo ya se encuentra registrado.</div>');
+        return;
+    }
+
+    const nuevoUsuario = { nombre, rut, email, rol, pass };
+    usuariosGuardados.push(nuevoUsuario);
+    localStorage.setItem('usuarios_registrados', JSON.stringify(usuariosGuardados));
 
     contenedor.html('<div class="alert alert-success"><i class="bi bi-check-circle"></i> Registro exitoso. Redirigiendo al inicio de sesión...</div>');
 
@@ -125,7 +145,6 @@ function validarRegistro() {
     }, 1500);
 }
 
-// Limpiar Registro
 function resetearRegistro() {
     if ($('#formularioRegistro').length) {
         $('#formularioRegistro')[0].reset();
@@ -134,11 +153,10 @@ function resetearRegistro() {
 }
 
 
-
+// ==========================================
 // 3. MÓDULO ADMINISTRACIÓN Y FICHAS CLÍNICAS
+// ==========================================
 
-
-// Guardar/Validar Ficha Clínica
 function guardarFichaClinica() {
     const rut = $('#rutDueno').val();
     const mascota = $('#nombreMascota').val().trim();
@@ -180,8 +198,9 @@ function guardarFichaClinica() {
     contenedor.html('<div class="alert alert-success"><i class="bi bi-check-circle"></i> Ficha clínica registrada correctamente.</div>');
 }
 
-// Cargar tabla de citas de prueba al estar lista la página
+// Cargar datos al cargar el documento
 $(document).ready(function() {
+    // Cargar Citas de Ejemplo
     if ($('#tablaCitas').length) {
         const citasEjemplo = [
             { id: 1, dueno: "Juan Pérez (11.111.111-1)", mascota: "Fuchy", fecha: "2026-09-10 10:00", estado: "Pendiente" },
@@ -204,5 +223,27 @@ $(document).ready(function() {
             `;
         });
         $('#tablaCitas').html(html);
+    }
+
+    // Cargar Usuarios Registrados
+    if ($('#tablaUsuarios').length) {
+        let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_registrados')) || [];
+        let htmlUsuarios = '';
+
+        if (usuariosGuardados.length === 0) {
+            htmlUsuarios = '<tr><td colspan="4" class="text-center text-muted">No hay usuarios registrados aún.</td></tr>';
+        } else {
+            usuariosGuardados.forEach(u => {
+                htmlUsuarios += `
+                    <tr>
+                        <td>${u.nombre}</td>
+                        <td>${u.rut}</td>
+                        <td>${u.email}</td>
+                        <td><span class="badge bg-info text-dark">${u.rol}</span></td>
+                    </tr>
+                `;
+            });
+        }
+        $('#tablaUsuarios').html(htmlUsuarios);
     }
 });
