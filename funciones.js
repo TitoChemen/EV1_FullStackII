@@ -5,9 +5,9 @@ function validarFormulario(formId) {
     // Paso 2: Obtener todos los campos (input, select, textarea)
     var campos = formulario.querySelectorAll('input, select, textarea');
 
-    // Paso 3: Contador de campos vacios
-    var vacios = 0;
-    var mensaje = '';
+    // Paso 3: Contadores y texto
+    var errores = 0;
+    var textoErrores = ''; // Cambiamos el nombre para que no choque con el id del textarea
 
     // Paso 4: Revisar cada campo
     for (var i = 0; i < campos.length; i++) {
@@ -18,16 +18,37 @@ function validarFormulario(formId) {
             continue;
         }
 
-        // Si el campo está vacio
+        var nombreCampo = campo.placeholder || campo.id; 
+
+        // Condición A: Si el campo está vacio
         if (campo.value.trim() === '') {
-            vacios++;
             
-            // MEJORA: Como el <select> no tiene placeholder, usamos su 'id' (asunto) si el placeholder no existe
-            var nombreCampo = campo.placeholder || campo.id; 
+            // ¡NUEVO!: Verificamos si es el campo opcional usando su id
+            if (campo.id === 'mensaje') {
+                campo.style.borderColor = ''; // Es opcional, le quitamos el rojo si lo tenía
+            } else {
+                // Si está vacío y NO es el mensaje, cuenta como error
+                errores++;
+                textoErrores = textoErrores + '• El campo ' + nombreCampo + ' está vacío<br>';
+                campo.style.borderColor = 'red'; 
+            }
             
-            mensaje = mensaje + '• ' + nombreCampo + '<br>';
-            campo.style.borderColor = 'red'; // Resaltamos en rojo 
-        } else {
+        } 
+        // Condición B: Si no está vacío y es el campo de email
+        else if (campo.type === 'email') {
+            var correo = campo.value.trim().toLowerCase(); 
+            
+            // Verificamos si NO termina en @duoc.cl y NO termina en @gmail.com
+            if (!correo.endsWith('@duoc.cl') && !correo.endsWith('@gmail.com')) {
+                errores++;
+                textoErrores = textoErrores + '• El correo debe terminar en @duoc.cl o @gmail.com<br>';
+                campo.style.borderColor = 'red';
+            } else {
+                campo.style.borderColor = ''; 
+            }
+        } 
+        // Condición C: Si no está vacío y no es email, todo está correcto
+        else {
             campo.style.borderColor = ''; // Quitamos el rojo
         }
     }
@@ -35,17 +56,15 @@ function validarFormulario(formId) {
     // Paso 5: Mostrar resultado
     var resultado = document.getElementById('resultado-validacion');
 
-    if (vacios > 0) {
-        // Errores en los campos (Usando el diseño de alerta roja de Bootstrap)
+    if (errores > 0) {
         resultado.innerHTML = `
             <div class="alert alert-danger">
-                <strong>Faltan ${vacios} campos por completar:</strong><br>
-                ${mensaje}
+                <strong>Por favor corrige los siguientes errores:</strong><br>
+                ${textoErrores}
             </div>
         `;
         resultado.style.display = 'block';
     } else {
-        // Éxito (Usando el diseño de alerta verde de Bootstrap)
         resultado.innerHTML = `
             <div class="alert alert-success">
                 <i class="bi bi-check-circle-fill"></i> ¡Formulario validado! Tu mensaje ha sido enviado correctamente.
@@ -53,7 +72,7 @@ function validarFormulario(formId) {
         `;
         resultado.style.display = 'block';
     }
-} // fin function validarFormulario
+}
 
 
 function resetearFormulario(formId) {

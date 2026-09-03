@@ -15,3 +15,5 @@ Menú Global y Footer: Navegación persistente para todo el equipo.
 Validaciones: Formulario de contacto/consultas con validaciones JS de campos obligatorios y correos (@duoc.cl / @gmail.com).
 
 *//
+
+Por mi parte (Jaime Rodriguez) cree la pestaña de contacto
