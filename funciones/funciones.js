@@ -33,14 +33,14 @@ function validarRut(rut) {
 
 
 // Validar inicio de sesión
-function validarLogin() {
+function manejarLogin() {
     const email = $('#loginEmail').val().trim();
     const pass = $('#loginPass').val();
     const contenedorError = $('#resultado-validacion');
     
     contenedorError.html('');
 
-    // Mínimo 8 caracteres, al menos una letra y un número
+    // Requisito de contraseña: al menos 8 caracteres, letras y números
     const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
     if (!email || !pass) {
@@ -53,11 +53,26 @@ function validarLogin() {
         return;
     }
 
+    // Determinar destino según el correo del usuario
+    let paginaDestino = 'usuarios.html';
+
+    if (email === 'admin@sanmarcos.cl') {
+        paginaDestino = 'admin.html';
+    } else if (email === 'veterinario@sanmarcos.cl') {
+        paginaDestino = 'ficha_veterinaria.html';
+    } else if (email === 'recepcion@sanmarcos.cl') {
+        paginaDestino = 'usuarios.html';
+    }
+
+    // Mensaje de éxito y redirección
     contenedorError.html('<div class="alert alert-success"><i class="bi bi-check-circle"></i> Acceso exitoso. Redireccionando...</div>');
+
     setTimeout(() => {
-        window.location.href = "admin-citas.html";
+        window.location.href = paginaDestino;
     }, 1000);
 }
+
+
 
 // Validar Formulario de Registro
 function validarRegistro() {
