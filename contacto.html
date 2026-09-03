@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria San Marcos - Especialidades y Contacto</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- BOOTSTRAP ICONS & GOOGLE FONTS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- TU CSS OFICIAL -->
+    <link rel="stylesheet" href="css/estilos.css">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #2b1a17 0%, #3d2520 50%, #1c100e 100%) !important;
+            color: #fbf8f5 !important;
+            min-height: 100vh;
+        }
+        /* Barra superior tipo Oftaderm */
+        .top-bar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+            padding: 15px 0;
+        }
+        .top-bar h6, .top-bar p, .top-bar small {
+            color: #333333 !important;
+        }
+        .info-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .info-box i {
+            font-size: 24px;
+            color: #d2cf0c;
+        }
+        .info-box h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 14px;
+            color: #555555;
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 13px;
+            color: #777;
+        }
+        /* Estilos de formulario y contacto unificados al tema oscuro */
+        .contact-section {
+            padding: 40px 0;
+        }
+        .contact-section h2, .contact-section p {
+            color: #fbf8f5 !important;
+        }
+        .contact-info {
+            background-color: rgba(58, 38, 34, 0.85) !important;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #d97706;
+            border: 1px solid rgba(224, 159, 102, 0.3);
+        }
+        .contact-info h5, .contact-info p {
+            color: #fbf8f5 !important;
+        }
+        .mapa-iframe {
+            width: 100%;
+            height: 250px;
+            border: none;
+            border-radius: 8px;
+        }
+        .btn-enviar {
+            background-color: #d97706 !important;
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .btn-enviar:hover {
+            background-color: #b45309 !important;
+        }
+        footer {
+            background-color: rgba(20, 11, 9, 0.95) !important;
+            color: #d6beaa !important;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(224, 159, 102, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ENCABEZADO SUPERIOR ===== -->
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Logo -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h2 class="m-0 fw-bold" style="color: #472c05;">
+                            <i class="bi bi-shield-plus text-warning"></i> San Marcos
+                        </h2>
+                        <small class="text-muted">Centro Médico Veterinario</small>
+                    </div>
+                    <!-- Ubicación -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="info-box">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <div>
+                                <h6>NUESTRA UBICACIÓN</h6>
+                                <p>Av. Republica de Chile, Rancagua</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Horario -->
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <i class="bi bi-clock-fill"></i>
+                            <div>
+                                <h6>HORARIO</h6>
+                                <p>Lun - Sáb: 09:00 – 19:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENÚ DE NAVEGACIÓN UNIFICADO -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html"><i class="bi bi-house"></i> Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="agendar.html"><i class="bi bi-calendar-check"></i> Agendar Cita</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="contacto.html"><i class="bi bi-envelope"></i> Contacto</a>
+                        </li>
+                    </ul>
+                    <!-- Acceso al sistema del Oscar -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bold" href="login.html"><i class="bi bi-person-circle"></i> Portal Médico</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== SECCIÓN DE CONTACTO Y FORMULARIO ===== -->
+    <section class="container contact-section">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="text-warning"><i class="bi bi-chat-heart"></i> Formulario de Contacto</h2>
+                <p class="text-muted">Completa los datos y te responderemos a la brevedad posible.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Formulario -->
+            <div class="col-md-8">
+                <form id="formularioContacto">
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-person"></i> Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ej: María González">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-envelope"></i> Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" placeholder="correo@ejemplo.com">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-phone"></i> Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono" placeholder="+56 9 1234 5678">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-tag"></i> Asunto</label>
+                        <select class="form-select" id="asunto">
+                            <option value="">Selecciona un motivo</option>
+                            <option value="consulta">Consulta general</option>
+                            <option value="urgencia">Urgencias</option>
+                            <option value="especialidad">Especialidades médicas</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label"><i class="bi bi-chat-dots"></i> Mensaje</label>
+                        <textarea class="form-control" id="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+                    </div>
+
+                    <div id="resultado-validacion" class="mb-3"></div>
+
+                    <div class="d-flex gap-3">
+                        <button type="button" class="btn-enviar" onclick="validarFormulario('formularioContacto')">
+                            <i class="bi bi-send"></i> Enviar
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="resetearFormulario('formularioContacto')">
+                            <i class="bi bi-eraser"></i> Limpiar
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Información Lateral y Mapa -->
+            <div class="col-md-4">
+                <div class="contact-info">
+                    <h5><i class="bi bi-geo-alt text-warning"></i> Dirección</h5>
+                    <p>Av. Republica de Chile 0984<br>Rancagua, O'Higgins</p>
+                </div>
+
+                <div class="contact-info">
+                    <h5><i class="bi bi-telephone text-warning"></i> Teléfono</h5>
+                    <p>+56 2 2345 6788</p>
+                </div>
+
+                <div class="contact-info">
+                    <h5><i class="bi bi-envelope text-warning"></i> Email</h5>
+                    <p>contacto@sanmarcos.cl</p>
+                </div>
+
+                <iframe class="mapa-iframe shadow-sm" 
+                        src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1650.8531888222565!2d-70.74701634870554!3d-34.15385341829882!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sRancagua%20Av.%20Republica%20de%20Chile!5e0!3m2!1ses!2scl!4v1788452209910!5m2!1ses!2scl">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PIE DE PÁGINA ===== -->
+    <footer>
+        <p class="m-0"><i class="bi bi-c-circle"></i> 2026 - Veterinaria San Marcos - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/funcionesJ.js"></script>
+</body>
+</html>

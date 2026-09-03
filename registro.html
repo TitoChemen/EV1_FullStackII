@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria San Marcos - Registro de Usuario</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <div class="franja-marca text-center">
+        Sistema interno · Veterinaria San Marcos — Rancagua, Región de O'Higgins
+    </div>
+
+    <div class="container my-4" style="max-width: 620px;">
+        <!-- Botón de escape al Login (pensando en el flujo del usuario) -->
+        <a href="login.html" class="btn btn-outline-warning btn-sm fw-bold mb-3">
+            <i class="bi bi-arrow-left"></i> Volver al Iniciar Sesión
+        </a>
+
+        <div class="card card-auth p-4 p-sm-5">
+            <div class="icono-auth"><i class="bi bi-person-plus-fill"></i></div>
+            <h1 class="h3 text-center mb-1">
+                <i class="material-icons align-middle">pets</i>
+                <span class="marca">Crear cuenta</span>
+            </h1>
+            <p class="text-center text-muted mb-4">Para dueños de mascotas y personal de la clínica</p>
+
+            <form id="formularioRegistro" novalidate>
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label"><i class="bi bi-person"></i> Nombre completo</label>
+                        <input type="text" class="form-control" id="regNombre" placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label"><i class="bi bi-card-heading"></i> RUT</label>
+                        <input type="text" class="form-control" id="regRut" placeholder="12345678-9">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-envelope"></i> Correo electrónico</label>
+                    <input type="email" class="form-control" id="regEmail" placeholder="correo@ejemplo.com">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label"><i class="bi bi-person-badge"></i> Tipo de usuario</label>
+                    <select class="form-select" id="regRol">
+                        <option value="">Selecciona un tipo de usuario</option>
+                        <option value="DUENO">Dueño de mascota</option>
+                        <option value="RECEPCIONISTA">Recepcionista / Operador</option>
+                        <option value="VETERINARIO">Médico veterinario</option>
+                    </select>
+                    <div class="form-text-ayuda mt-1">
+                        Las cuentas de Administrador no se autorregistran: las crea otro administrador desde el panel interno.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-lock"></i> Contraseña</label>
+                        <input type="password" class="form-control" id="regPass" placeholder="Mínimo 8, letras y números">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label"><i class="bi bi-shield-lock"></i> Confirmar contraseña</label>
+                        <input type="password" class="form-control" id="regPassConfirm">
+                    </div>
+                </div>
+
+                <div id="resultado-validacion-registro"></div>
+
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <button type="button" class="btn btn-primario" onclick="manejarRegistro()">
+                        <i class="bi bi-check-lg"></i> Registrarse
+                    </button>
+                    <button type="button" class="btn btn-secundario" onclick="resetearRegistro()">
+                        <i class="bi bi-eraser"></i> Limpiar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="pie-sanmarcos text-center py-4 mt-4">
+        © 2026 Veterinaria San Marcos — Todos los derechos reservados
+    </footer>
+
+    <!-- SCRIPTS CORREGIDOS (con Bootstrap Bundle incluido) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/funciones.js"></script>
+</body>
+</html>

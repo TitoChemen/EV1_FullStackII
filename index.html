@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria San Marcos - Inicio</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- BOOTSTRAP ICONS & GOOGLE FONTS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- TU CSS OFICIAL -->
+    <link rel="stylesheet" href="css/estilos.css">
+
+    <style>
+        /* Unificación total del fondo oscuro en el index */
+        body, .about-section {
+            background: linear-gradient(135deg, #2b1a17 0%, #3d2520 50%, #1c100e 100%) !important;
+            color: #fbf8f5 !important;
+        }
+        .hero-section {
+            background: transparent !important;
+            border-bottom: 2px solid rgba(224, 159, 102, 0.3) !important;
+        }
+        .hero-section h1, .hero-section p {
+            color: #fbf8f5 !important;
+        }
+        .about-section h2, .about-section p, .about-section strong {
+            color: #fbf8f5 !important;
+        }
+        .about-section .text-muted {
+            color: #d6beaa !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ENCABEZADO SUPERIOR ===== -->
+    <header>
+        <div class="top-bar bg-white border-bottom py-3">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Logo -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h2 class="m-0 fw-bold" style="color: #472c05;">
+                            <i class="bi bi-shield-plus text-warning"></i> San Marcos
+                        </h2>
+                        <small class="text-muted">Centro Médico Veterinario</small>
+                    </div>
+                    <!-- Ubicación -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-geo-alt-fill fs-3 text-warning"></i>
+                            <div>
+                                <h6 class="m-0 fw-bold" style="color: #555; font-size: 14px;">NUESTRA UBICACIÓN</h6>
+                                <p class="m-0 text-muted" style="font-size: 13px;">Av. República de Chile, Rancagua</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Horario -->
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-clock-fill fs-3 text-warning"></i>
+                            <div>
+                                <h6 class="m-0 fw-bold" style="color: #555; font-size: 14px;">HORARIO</h6>
+                                <p class="m-0 text-muted" style="font-size: 13px;">Lun - Sáb: 09:00 – 19:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENÚ DE NAVEGACIÓN -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html"><i class="bi bi-house"></i> Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="agendar.html"><i class="bi bi-calendar-check"></i> Agendar Cita</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contacto.html"><i class="bi bi-envelope"></i> Contacto</a>
+                        </li>
+                    </ul>
+                    <!-- Acceso al sistema del Oscar -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-warning fw-bold" href="login.html"><i class="bi bi-person-circle"></i> Portal Médico</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== SECCIÓN HERO (BANNER PRINCIPAL) ===== -->
+    <section class="hero-section text-center py-5 border-bottom border-warning border-5">
+        <div class="container py-5">
+            <h1 class="display-4 fw-bold mb-3">Cuidamos a tu mejor amigo <br> como si fuera nuestro</h1>
+            <p class="lead mb-4 text-warning">Medicina preventiva, urgencias y especialidades con el mejor equipo de Rancagua.</p>
+            <a href="agendar.html" class="btn btn-warning btn-lg fw-bold text-dark px-4"><i class="bi bi-calendar-check"></i> Agendar Cita</a>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN DE SERVICIOS ===== -->
+    <section class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="text-warning fw-bold">Nuestras Especialidades</h2>
+            <p class="text-muted">Atención integral para el bienestar de tu mascota</p>
+        </div>
+        <div class="row g-4 text-center">
+            <!-- Servicio 1 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <i class="bi bi-heart-pulse text-warning" style="font-size: 3rem;"></i>
+                        <h4 class="card-title mt-3">Consulta General</h4>
+                        <p class="card-text text-muted">Chequeos preventivos, diagnóstico de enfermedades y control de peso.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Servicio 2 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <i class="bi bi-bandaid text-warning" style="font-size: 3rem;"></i>
+                        <h4 class="card-title mt-3">Vacunación</h4>
+                        <p class="card-text text-muted">Calendario completo de vacunas y desparasitación interna/externa.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Servicio 3 -->
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <i class="bi bi-scissors text-warning" style="font-size: 3rem;"></i>
+                        <h4 class="card-title mt-3">Peluquería</h4>
+                        <p class="card-text text-muted">Cortes de raza, baños sanitarios y limpieza de oídos y uñas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN QUIÉNES SOMOS (BIOGRAFÍA) ===== -->
+    <section class="about-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <img src="imagenes/JD2SJ3WUJFFE7OIQ2XSSRQWJUE.png" alt="Logo o foto de la clínica" class="img-fluid rounded-3 shadow">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="fw-bold text-warning mb-3">Sobre Veterinaria San Marcos</h2>
+                    <p class="lead">Pasión y dedicación por los animales desde 2009.</p>
+                    <p class="text-muted">Fundado en el año 2009 por <strong>Kevin Sosa</strong>, un hombre quien ama a los animales de todas las especies y a quienes les da cariño y los trata con delicadeza. Se dice que tiene un <strong>don</strong> con los animales y junto a su familia y amigos decidió abrir una veterinaria, y su cariño y atención se ha pasado de generación en generación.</p>
+                    <p class="text-muted">Nuestro compromiso es entregar un servicio de excelencia, contando con las mejores herramientas para exámenes y diagnósticos rápidos y precisos para que su mascota quede como nueva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PIE DE PÁGINA ===== -->
+    <footer class="bg-dark text-white text-center py-4 mt-4">
+        <p class="m-0"><i class="bi bi-c-circle"></i> 2026 - Veterinaria San Marcos - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

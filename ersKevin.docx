@@ -1,0 +1,42 @@
+ESPECIFICACIÓN DE REQUISITOS DE SOFTWARE (ERS)
+Sistema de Gestión y Agendamiento — Veterinaria San Marcos
+
+1. Introducción
+Nombre del Proyecto: Sistema de Gestión y Agendamiento — Veterinaria San Marcos.
+
+Propósito: El presente documento tiene como objetivo definir y formalizar los requisitos funcionales, no funcionales y la estructura arquitectónica para el desarrollo del módulo web de agendamiento de servicios médicos veterinarios.
+
+Alcance: El sistema contempla el desarrollo del frontend dinámico que abarca el catálogo de servicios, la consulta detallada de cada prestación médica, el módulo de solicitudes de citas (carrito) con cálculo automático de costo total, notificaciones de acción al usuario y la persistencia de datos en el cliente mediante localStorage.
+
+2. Requisitos Funcionales (RF)
+RF-01 — Catálogo Dinámico de Servicios: El sistema debe listar de forma dinámica la oferta médica (consultas, vacunación, cirugías, desparasitaciones), mostrando imagen, categoría, título, descripción breve y precio formateado en moneda local.
+
+RF-02 — Vista de Detalle del Servicio: El usuario debe poder seleccionar un servicio específico e ir a la página servicios.html?id=X para consultar la información extendida del procedimiento.
+
+RF-03 — Agendamiento y Carrito de Citas: El sistema debe permitir al usuario agregar servicios a su lista de solicitudes, modificar la cantidad elegida, eliminar ítems y calcular automáticamente el total estimado.
+
+RF-04 — Retroalimentación y Notificaciones: El sistema debe desplegar un mensaje flotante (toast) temporal de confirmación cada vez que se añada un servicio con éxito al carrito.
+
+RF-05 — Persistencia de Datos: Toda solicitud agendada por el usuario debe almacenarse en el localStorage del navegador para evitar la pérdida de información ante recargas o cierres de pestaña.
+
+3. Requisitos No Funcionales (RNF)
+RNF-01 — Diseño de Interfaz y Experiencia (UI/UX): La interfaz debe ser 100% responsiva mediante el framework Bootstrap 5, aplicando la paleta de colores corporativa Caramel & Dulce de Leche.
+
+RNF-02 — Compatibilidad de Navegadores: La aplicación debe garantizar su correcto funcionamiento en las versiones más recientes de Google Chrome, Mozilla Firefox y Microsoft Edge.
+
+RNF-03 — Rendimiento y Manipulación del DOM: La actualización de los componentes interactivos (modal, contador de citas, alertas) debe ejecutarse en tiempo real utilizando JavaScript vanilla (ES6+), minimizando recargas innecesarias del navegador.
+
+4. Arquitectura y Estructura de Archivos
+Tecnologías Frontend: HTML5, CSS3, JavaScript (ES6+), Bootstrap 5 y Bootstrap Icons.
+
+Organización de Archivos del Proyecto:
+
+listaServicios.html (o index.html): Vista principal del catálogo dinámico.
+
+servicios.html: Vista de detalle individual del servicio según parámetro URL.
+
+css/estilos.css: Hoja de estilos personalizada con la paleta Caramel & Dulce de Leche.
+
+js/servicios.js: Declaración del arreglo de datos de servicios y lógica de renderizado del catálogo.
+
+js/carrito.js: Lógica del agendamiento, gestión de la modal, persistencia en localStorage y sistema de notificaciones toast.

@@ -1,0 +1,130 @@
+/* css/estilos.css - Corrección definitiva de contrastes */
+
+:root {
+    --bg-caramel: linear-gradient(135deg, #2b1a17 0%, #3d2520 50%, #1c100e 100%);
+    --card-bg: rgba(43, 26, 23, 0.92); /* Fondo de tarjeta más sólido y elegante */
+    --card-border: rgba(224, 159, 102, 0.35);
+    --text-main: #fbf8f5;
+    --text-muted: #e2d2c4;
+    --dulce-de-leche: #d97706; 
+    --dulce-hover: #b45309;
+    --caramel-accent: #f59e0b; 
+    --botton-green: #15803d;
+    --botton-green-hover: #166534;
+}
+
+/* Fondo general */
+body {
+    background: var(--bg-caramel);
+    background-attachment: fixed;
+    min-height: 100vh;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #fbf8f5 !important;
+}
+
+/* Forzar títulos y subtítulos claros en el inicio donde hay fondo blanco */
+.hero-section {
+    background-color: #f8f9fa !important;
+}
+.hero-section h1, .hero-section p {
+    color: #2b1a17 !important; /* Oscuro solo para el banner blanco del inicio */
+}
+
+/* Textos generales de la página */
+p, label, span, h2, h3, h4, h5, h6 {
+    color: var(--text-main);
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Arreglar títulos oscuros invisibles dentro de las tarjetas de login/registro */
+.card-auth h1, .card-auth h3, .card-auth .marca, .card-auth p {
+    color: #fbf8f5 !important;
+}
+
+.card-auth .text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Estilos de Tarjetas */
+.card {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--card-border) !important;
+    backdrop-filter: blur(5px);
+    color: var(--text-main) !important;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.card-title {
+    color: var(--caramel-accent) !important;
+}
+
+/* Inputs y Formularios */
+.form-control, .form-select {
+    background-color: rgba(20, 11, 9, 0.95) !important;
+    border: 1px solid var(--card-border) !important;
+    color: #ffffff !important;
+}
+
+.form-control::placeholder {
+    color: #bfaea0 !important;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: rgba(20, 11, 9, 1) !important;
+    border-color: var(--caramel-accent) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25);
+}
+
+.form-label {
+    color: var(--text-muted) !important;
+    font-weight: 600;
+}
+
+/* Botones de autenticación y de acción */
+.btn-dulce, .btn-primario, button[onclick*="Login"], button[onclick*="Registro"] {
+    background-color: var(--dulce-de-leche) !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.btn-dulce:hover, .btn-primario:hover {
+    background-color: var(--dulce-hover) !important;
+    color: #ffffff !important;
+}
+
+.btn-reserva {
+    background-color: var(--botton-green);
+    color: #ffffff;
+    border: none;
+}
+
+.btn-reserva:hover {
+    background-color: var(--botton-green-hover);
+    color: #ffffff;
+}
+
+.btn-secundario, a.btn-secundario {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--card-border) !important;
+}
+
+.btn-secundario:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: var(--caramel-accent) !important;
+}
+
+/* Footer */
+footer, .pie-sanmarcos {
+    background-color: rgba(20, 11, 9, 0.95) !important;
+    color: var(--text-muted) !important;
+    border-top: 1px solid var(--card-border);
+}
