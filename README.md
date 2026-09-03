@@ -1,1 +1,54 @@
-Veterinaria San MarcosUnidad de maquetación y desarrollo fullstack para la plataforma web del centro médico Veterinaria San Marcos, ubicada en Rancagua. Este proyecto unifica de manera fluida la vitrina pública, el catálogo interactivo de servicios con carrito/citas y el sistema administrativo interno protegido por autenticación de roles.Estructura del ProyectoEl proyecto está organizado de manera modular separando los recursos de diseño, la lógica de negocio y las páginas estáticas/dinámicas:index.html: Portada principal con la identidad visual corporativa, secciones informativas de la clínica y accesos directos al catálogo y portal médico.agendar.html: Módulo de servicios médicos y catálogo interactivo con persistencia de citas.contacto.html: Canal de comunicación con formulario validado e integración de ubicación geográfica.login.html & registro.html: Módulos de autenticación y autorregistro para dueños de mascotas y personal autorizado.admin.html: Panel de control general para la recepción y gestión de citas entrantes.  ficha-veterinaria.html: Módulo clínico unificado para la gestión de historiales de pacientes, diagnósticos y vacunas.  usuarios.html: Panel exclusivo de administración para la gestión de cuentas y control de personal.  css/estilos.css: Hoja de estilos centralizada bajo la identidad visual Caramel & Dulce de Leche.js/: Scripts dedicados para la gestión de carritos (carrito.js), servicios (servicios.js), validaciones de contacto (funcionesJ.js) y el motor central de almacenamiento y control de sesiones (funciones.js).Tecnologías UtilizadasFrontend: HTML5 semántico, CSS3 personalizado y Bootstrap 5.3.  Iconografía y Tipografía: Bootstrap Icons, Google Material Icons y Google Fonts (Open Sans).  Lógica y Persistencia: JavaScript moderno (ES6+) apoyado en jQuery 3.7.1 y simulación de base de datos mediante localStorage para el control de sesiones y roles de usuario.Credenciales de Demostración (Sistema Interno)Para probar los diferentes niveles de acceso y permisos dentro del Portal Médico, utilice las siguientes cuentas precargadas en el sistema:Administrador: admin@sanmarcos.cl / Admin2026  Recepcionista: recepcion@sanmarcos.cl / Recepcion2026  Veterinario: veterinario@sanmarcos.cl / Vet2026a  Instrucciones de Despliegue LocalClona el repositorio y asegúrate de situarte en la rama correspondiente (EV1).Abre la carpeta del proyecto en tu entorno de desarrollo favorito (como VS Code).Levanta un servidor local (por ejemplo, utilizando la extensión Live Server de Visual Studio Code) para evitar restricciones de seguridad con los scripts y el almacenamiento local.Abre index.html en tu navegador web para navegar por todo el ecosistema integrado.
+# 🐾 Veterinaria San Marcos 
+
+Bienvenidos al repositorio oficial de la **Veterinaria San Marcos** (Rancagua). Este proyecto une el trabajo de todo el equipo en una sola plataforma web impecable, combinando la vitrina pública, el catálogo con carrito de horas y un panel de administración interno con seguridad por roles.
+
+---
+
+## 🛠️ ¿Quién hizo qué? (División del equipo)
+
+* **Kevin:** Integración general, diseño y unificación de estilos (*Caramel & Dulce de Leche*), desarrollo del catálogo de servicios con carrito/citas (`agendar.html`), y la unificación de los flujos de navegación y ruteo entre los distintos módulos.
+* **Jaime:** Maquetación y estructura de la portada principal (`index.html`) y la sección de contacto (`contacto.html`) con su respectiva validación de formularios (`funcionesJ.js`).
+* **Oscar:** Desarrollo del sistema administrativo completo (`admin.html`, `login.html`, `registro.html`, `usuarios.html`, `ficha-veterinaria.html`) y el motor de almacenamiento local con control de roles (`funciones.js`).
+
+---
+
+## 📂 Estructura del Proyecto
+
+El proyecto está ordenado de forma modular para que no se nos enrede nada:
+
+* 🏠 `index.html`: La portada oficial con la identidad de la clínica y accesos directos.
+* 🛒 `agendar.html`: Catálogo interactivo de especialidades médicas con gestión de citas.
+* ✉️ `contacto.html`: Formulario de consultas y mapa de ubicación.
+* 🔐 `login.html` & `registro.html`: Módulos de acceso y creación de cuentas.
+* ⚙️ `admin.html`: Panel para que recepción gestione las citas entrantes.
+* 📋 `ficha-veterinaria.html`: Historiales clínicos, diagnósticos y vacunas de los regalones.
+* 👥 `usuarios.html`: Gestión de personal exclusiva para administradores.
+* 🎨 `css/estilos.css`: Nuestra hoja de estilos centralizada con la facha gourmet.
+* 📜 `js/`: Los scripts de lógica (`carrito.js`, `servicios.js`, `funcionesJ.js` y el motor `funciones.js`).
+
+---
+
+## 🚀 Tecnologías que usamos
+
+* **Frontend:** HTML5 semántico, CSS3 personalizado y Bootstrap 5.3.
+* **Iconografía y Fuentes:** Bootstrap Icons, Material Icons y Google Fonts (*Open Sans*).
+* **Lógica y Datos:** JavaScript moderno (ES6+), jQuery 3.7.1 y `localStorage` para simular la base de datos de usuarios y citas.
+
+---
+
+## 🔑 Credenciales de Prueba (Portal Médico)
+
+Para revisar los distintos niveles de permisos por dentro, pásale estas cuentas al profe:
+
+* **Administrador:** `admin@sanmarcos.cl` / `Admin2026`
+* **Recepcionista:** `recepcion@sanmarcos.cl` / `Recepcion2026`
+* **Veterinario:** `veterinario@sanmarcos.cl` / `Vet2026a`
+
+---
+
+## 💻 ¿Cómo correrlo localmente?
+
+1. Clona el repositorio y ponte en la rama de entrega EV!.
+2. Abre la carpeta en tu editor favorito (como VS Code).
+3. Levanta un servidor local (por ejemplo, con la extensión *Live Server*) para que el `localStorage` y los scripts corran sin atados de seguridad.
+4. Abre `index.html` y ¡a navegar se ha dicho!
