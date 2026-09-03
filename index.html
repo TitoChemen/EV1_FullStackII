@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Veterinaria - Inicio</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- BOOTSTRAP ICONS & GOOGLE FONTS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+        }
+        /* Barra superior */
+        .top-bar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+            padding: 15px 0;
+        }
+        .info-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .info-box i {
+            font-size: 24px;
+            color: #d2cf0c;
+        }
+        .info-box h6 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 14px;
+            color: #555555;
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 13px;
+            color: #777;
+        }
+        /* Menú principal */
+        .main-nav {
+            background-color: #472c05;
+        }
+        .main-nav .nav-link {
+            color: white !important;
+            font-weight: 600;
+            padding: 12px 20px;
+        }
+        .main-nav .nav-link:hover, .main-nav .nav-link.active {
+            background-color: #e5d871;
+            color: #472c05 !important;
+        }
+        
+        /* NUEVOS ESTILOS PARA EL INICIO */
+        .hero-section {
+            background-color: #f8f9fa;
+            padding: 80px 0;
+            border-bottom: 5px solid #a7d20c;
+        }
+        .btn-agendar {
+            background-color: #a7d20c;
+            color: white;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .btn-agendar:hover {
+            background-color: #96b71e;
+            color: white;
+            transform: scale(1.05);
+        }
+        .service-card {
+            border: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            transition: 0.3s;
+            height: 100%;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-bottom: 4px solid #a7d20c;
+        }
+        .icon-large {
+            font-size: 3rem;
+            color: #d2cf0c;
+            margin-bottom: 15px;
+        }
+        .about-section {
+            background-color: #ffffff;
+            padding: 60px 0;
+        }
+        footer {
+            background-color: #f6ee00;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ENCABEZADO SUPERIOR ===== -->
+    <header>
+        <div class="top-bar">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Logo -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <h2 class="m-0 text-primary fw-bold" style="color: #472c05 !important;">
+                            <i class="bi bi-shield-plus" style="color: #a7d20c;"></i> VetCentro
+                        </h2>
+                        <small class="text-muted">Centro Médico Veterinario</small>
+                    </div>
+                    <!-- Ubicación -->
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="info-box">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <div>
+                                <h6>NUESTRA UBICACIÓN</h6>
+                                <p>Av. Republica de Chile, Rancagua</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Horario -->
+                    <div class="col-md-4">
+                        <div class="info-box">
+                            <i class="bi bi-clock-fill"></i>
+                            <div>
+                                <h6>HORARIO</h6>
+                                <p>Lun - Sáb: 09:00 – 19:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MENÚ DE NAVEGACIÓN -->
+        <nav class="navbar navbar-expand-lg main-nav">
+            <div class="container">
+                <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <!-- NOTA: Aquí "active" está en el Home -->
+                            <a class="nav-link active" href="index.html"><i class="bi bi-house"></i> Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contacto.html"><i class="bi bi-envelope"></i> Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== SECCIÓN HERO (BANNER PRINCIPAL) ===== -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3" style="color: #472c05;">Cuidamos a tu mejor amigo <br> como si fuera nuestro</h1>
+            <p class="lead text-muted mb-4">Medicina preventiva, urgencias y especialidades con el mejor equipo de Rancagua.</p>
+            <!-- El botón lleva a la página de contacto que ya creaste -->
+            <a href="contacto.html" class="btn-agendar"><i class="bi bi-calendar-check"></i> Agendar Cita</a>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN DE SERVICIOS ===== -->
+    <section class="container py-5">
+        <div class="text-center mb-5">
+            <h2 style="color: #472c05;">Nuestras Especialidades</h2>
+            <p class="text-muted">Atención integral para el bienestar de tu mascota</p>
+        </div>
+        <div class="row g-4 text-center">
+            <!-- Servicio 1 -->
+            <div class="col-md-4">
+                <div class="card service-card p-4">
+                    <div class="card-body">
+                        <i class="bi bi-heart-pulse icon-large"></i>
+                        <h4 class="card-title mt-3">Consulta General</h4>
+                        <p class="card-text text-muted">Chequeos preventivos, diagnóstico de enfermedades y control de peso.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Servicio 2 -->
+            <div class="col-md-4">
+                <div class="card service-card p-4">
+                    <div class="card-body">
+                        <i class="bi bi-bandaid icon-large"></i>
+                        <h4 class="card-title mt-3">Vacunación</h4>
+                        <p class="card-text text-muted">Calendario completo de vacunas y desparasitación interna/externa.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Servicio 3 -->
+            <div class="col-md-4">
+                <div class="card service-card p-4">
+                    <div class="card-body">
+                        <i class="bi bi-scissors icon-large"></i>
+                        <h4 class="card-title mt-3">Peluquería</h4>
+                        <p class="card-text text-muted">Cortes de raza, baños sanitarios y limpieza de oídos y uñas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECCIÓN QUIÉNES SOMOS (BIOGRAFÍA) ===== -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <!-- Aquí puedes poner una imagen de tu veterinaria después -->
+                    <div class="p-5 text-center rounded-3" style="background-color: #f6ee00; color: #472c05;">
+                        <i class="bi bi-shop display-1"></i>
+                        <h3 class="mt-3">Tu logo/foto aquí</h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="fw-bold" style="color: #472c05;">Sobre VetCentro</h2>
+                    <p class="lead">Pasión y dedicación por los animales desde [Año].</p>
+                    <!-- ¡Aquí entra tu creatividad! -->
+                    <p class="text-muted">Aquí es donde puedes inventar la biografía. Puedes escribir sobre cómo empezó la clínica, los valores que tienen (como empatía y profesionalismo), o el equipo de doctores que trabaja ahí. Este texto es súper importante para que los clientes sientan confianza al dejar a sus mascotas.</p>
+                    <p class="text-muted">Nuestro compromiso es entregar un servicio de excelencia, contando con tecnología de punta para exámenes y diagnósticos rápidos y precisos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PIE DE PÁGINA ===== -->
+    <footer>
+        <p class="m-0"><i class="bi bi-c-circle"></i> 2026 - VetCentro - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
