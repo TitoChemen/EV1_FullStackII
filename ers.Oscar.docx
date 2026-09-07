@@ -1,87 +1,52 @@
-Alcance
-El módulo contempla el desarrollo de las pantallas de inicio de sesión y registro
- diferenciado por tipo de usuario, el panel de administración/recepción para la gestión de solicitudes de citas,
-  el módulo de fichas clínicas de pacientes (mascotas, diagnósticos y vacunas), el control de acceso basado 
-  en roles (RBAC) y las validaciones complejas de datos (RUT, contraseña, correo, fechas y dosis),
-   con persistencia de datos en el cliente mediante localStorage mientras se integra el backend definitivo
+Alcance del Proyecto
+El módulo comprende el desarrollo de las interfaces de autenticación y registro con segmentación por tipo de usuario, el panel de administración y recepción para la administración de solicitudes de citas, el sistema de fichas clínicas para pacientes (mascotas, diagnósticos y registros de vacunación), la implementación de control de acceso basado en roles (RBAC) y la validación avanzada de datos (RUT, credenciales, formato de correo, coherencia de fechas y dosificación), operando con persistencia local en el navegador mediante localStorage de forma transitoria previo a la integración con el backend definitivo.
 
+2. Requisitos Funcionales (RF)
 
-2 Requisitos Funcionales (RF)
-RF-01 — Registro Diferenciado de Usuarios: El sistema debe permitir crear una cuenta indicando nombre completo,
- RUT, correo, contraseña y tipo de usuario (Dueño de mascota, Recepcionista o Médico veterinario)
-  El rol Administrador no está disponible para autorregistro
+RF-01 — Registro Diferenciado de Usuarios: El sistema habilitará la creación de cuentas especificando nombre completo, RUN/RUT, correo electrónico, contraseña y perfil de usuario (Dueño de mascota, Recepcionista o Médico Veterinario), restringiendo de forma explícita el autorregistro para el rol de Administrador.
 
-RF-02 — Autenticación de Usuarios: El sistema debe validar el correo y la contraseña ingresados contra las cuentas
- registradas, e impedir el acceso de cuentas marcadas como desactivadas
+RF-02 — Autenticación de Usuarios: El sistema validará las credenciales ingresadas (correo y contraseña) frente al registro de cuentas almacenadas, denegando de manera estricta el acceso a aquellos perfiles que se encuentren desactivados.
 
-RF-03 — Control de Acceso por Rol (RBAC): Cada vista interna debe verificar que exista una sesión activa
- y que el rol del usuario esté autorizado para esa pantalla; de lo contrario, debe redirigir automáticamente
-  al inicio de sesión
+RF-03 — Control de Acceso por Rol (RBAC): Cada vista interna validará la existencia de una sesión activa y comprobará que el rol del usuario posea los permisos correspondientes para visualizar dicha interfaz; de lo contrario, se ejecutará una redirección automática hacia la pantalla de inicio de sesión.
 
-RF-04 — Gestión de Solicitudes de Citas: El sistema debe permitir a Recepción/Administración listar
- las solicitudes de citas generadas por los dueños de mascota, confirmarlas o reagendarlas
-  indicando una nueva fecha y hora
+RF-04 — Gestión de Solicitudes de Citas: El sistema otorgará al personal de Recepción y Administración las facultades para listar, confirmar o reagendar las solicitudes de citas emitidas por los propietarios de mascotas, especificando fecha y hora actualizadas.
 
-RF-05 — Gestión de Usuarios del Sistema: El Administrador debe poder reasignar el rol de un usuario y 
-activar o desactivar su cuenta desde el panel interno
-RF-06 — Gestión de Fichas Clínicas de Pacientes: El sistema debe permitir crear y editar los datos de una mascota
- y su dueño, registrar diagnósticos y tratamientos, y llevar el historial de vacunación 
- calculando automáticamente si una vacuna está vigente, por vencer o vencida
+RF-05 — Gestión de Usuarios del Sistema: El Administrador dispondrá de privilegios para modificar la asignación de roles de los usuarios, así como para alternar el estado de activación de sus cuentas directamente desde el panel de control interno.
 
-RF-07 — Validaciones Complejas de Datos: El sistema debe validar el formato y dígito verificador del RUT
- del dueño, el formato del correo electrónico, la fortaleza de la contraseña, la coherencia 
- de las fechas ingresadas (nacimiento, aplicación y vencimiento de vacunas, diagnósticos) y que la dosis
-  de un medicamento sea un número mayor a 0
+RF-06 — Gestión de Fichas Clínicas de Pacientes: El sistema permitirá el registro y la edición de los antecedentes de la mascota y su propietario, la incorporación de diagnósticos y tratamientos, y la trazabilidad del historial de vacunación mediante el cálculo automático de estados (vigente, por vencer o vencida).
 
-RF-08 — Persistencia de Datos: Los usuarios, la sesión activa, las citas y las fichas clínicas deben
- almacenarse en el localStorage del navegador para evitar la pérdida de información ante 
- recargas o cierres de pestaña, mientras se integra la API REST del backend
- 
+RF-07 — Validaciones Complejas de Datos: El sistema comprobará la validez formal y el dígito verificador del RUT del propietario, la estructura sintáctica del correo electrónico, los parámetros de complejidad de la contraseña, la concordancia cronológica entre fechas (nacimiento, aplicación, vencimiento y diagnósticos), y garantizará que las dosis de fármacos constituyan valores numéricos estrictamente mayores a cero.
 
+RF-08 — Persistencia de Datos: Los perfiles de usuario, la sesión activa, las citas médicas y las fichas clínicas se mantendrán almacenadas de manera local en el navegador mediante localStorage para resguardar la información ante recargas de página o cierres imprevistos de pestañas, sirviendo como capa intermedia mientras se consolida la conexión con la API REST del backend.
 
+3. Requisitos No Funcionales (RNF)
 
-3 Requisitos No Funcionales (RNF)
-RNF-01 — Diseño de Interfaz y Experiencia (UI/UX): La interfaz debe ser 100% responsiva mediante el
- framework Bootstrap 5, colapsando el menú de navegación a formato hamburguesa
- en resoluciones móviles (360 px), tablet (768 px) y adaptándose a escritorio (1280 px)
- con iconografía Bootstrap Icons y Material Icons pensada para personal sin experiencia técnica
+RNF-01 — Diseño de Interfaz y Experiencia (UI/UX): La interfaz presentará un diseño completamente responsivo construido sobre el framework Bootstrap 5, contrayendo el menú de navegación en dispositivos móviles (360 px) y tabletas (768 px), y adaptándose de forma fluida a pantallas de escritorio (1280 px) mediante el uso de Bootstrap Icons y Material Icons orientados a usuarios sin conocimientos técnicos avanzados.
 
-RNF-02 — Seguridad y Control de Acceso: Las contraseñas deben tener un mínimo de 8 caracteres,
- con letras y números; ninguna vista interna del  panel debe ser accesible sin una sesión activa,
-  con excepción de las pantallas de inicio de sesión y registro
+RNF-02 — Seguridad y Control de Acceso: Las contraseñas requerirán una longitud mínima de 8 caracteres combinando caracteres alfanuméricos; asimismo, ninguna sección interna del panel será accesible sin una sesión validada, exceptuando las pantallas públicas de autenticación y registro.
 
-RNF-03 — Rendimiento y Manipulación del DOM: La actualización de los componentes interactivos 
-(tablas de citas y usuarios, badges de estado, formularios de fichas clínicas) debe ejecutarse en tiempo real
- utilizando JavaScript y jQuery, minimizando recargas innecesarias del navegador
+RNF-03 — Rendimiento y Manipulación del DOM: La actualización de componentes dinámicos (tablas de gestión, indicadores de estado y formularios clínicos) se procesará de manera síncrona en tiempo real empleando JavaScript y jQuery, reduciendo al mínimo las recargas innecesarias de la página en el navegador.
 
-RNF-04 — Compatibilidad de Navegadores: La aplicación debe garantizar su correcto funcionamiento en las versiones
- más recientes de Google Chrome
+RNF-04 — Compatibilidad de Navegadores: La aplicación asegurará su correcta visualización y desempeño operativo en las versiones actualizadas de Google Chrome.
 
-RNF-05 — Mantenibilidad: Toda operación de lectura y escritura de datos debe pasar por una capa de acceso
- aislada (dbLeer/dbGuardar), de manera que localStorage
- pueda reemplazarse por llamadas a la API REST 
-de los microservicios Spring Boot sin modificar la lógica de validación ni el control de acceso por rol
+RNF-05 — Mantenibilidad: Toda instrucción de lectura y escritura de información operará a través de una capa de acceso independiente (dbLeer y dbGuardar), permitiendo sustituir el almacenamiento local por llamadas asíncronas a los microservicios REST en Spring Boot sin alterar la lógica de validación ni los filtros de control de acceso por rol.
 
+4. Arquitectura y Estructura de Archivos
 
+Tecnologías Frontend: HTML5, CSS3, JavaScript (ES6+) con integración de jQuery, Bootstrap 5, Bootstrap Icons y Material Icons.
 
+Organización de Archivos del Proyecto:
 
-4 Arquitectura y Estructura de Archivos
-Tecnologías Frontend: HTML5, CSS3, JavaScript (ES6+) con jQuery, Bootstrap 5, Bootstrap Icons y Material Icons.
-Organización de Archivos del Proyecto
-    login.html: vista de inicio de sesión, con redirección según el rol de la cuenta autenticada
+login.html: interfaz destinada al inicio de sesión y redireccionamiento condicional según el perfil autenticado.
 
-	registro.html: vista de registro de usuarios, con selección de tipo de usuario (Dueño, 
-    Recepcionista, Veterinario)
+registro.html: vista orientada al registro de cuentas nuevas con selección de categoría de usuario (Dueño, Recepcionista, Veterinario).
 
-	admin.html: panel de administración/recepción — gestión y estado de las solicitudes de citas
+admin.html: panel centralizado de administración y recepción enfocado en la supervisión y estado de las solicitudes de citas.
 
-	usuarios.html: gestión de usuarios del sistema, reasignación de roles y activación/desactivación de 
-    cuentas (acceso exclusivo Administrador)
+usuarios.html: módulo exclusivo para el Administrador enfocado en la administración de cuentas, modificación de roles y activación o suspensión de perfiles.
 
-	ficha-veterinaria.html: búsqueda y gestión de fichas clínicas de pacientes, diagnósticos y vacunas
+ficha-veterinaria.html: sección dedicada a la búsqueda, creación y administración de historiales clínicos, diagnósticos y vacunas de los pacientes.
 
-	css/style.css: hoja de estilos personalizada con la paleta corporativa verde de Veterinaria San Marcos
+css/estilos.css: hoja de estilos personalizada adaptada a la identidad visual corporativa de la Veterinaria San Marcos.
 
-	js/funciones.js: lógica de autenticación, control de acceso por rol (RBAC), validaciones complejas 
-    y persistencia de datos en localStorage
-
+js/funciones.js: script principal que concentra la lógica de autenticación, restricciones por roles (RBAC), rutinas de validación avanzada y persistencia de datos mediante localStorage.

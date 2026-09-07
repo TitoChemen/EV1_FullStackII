@@ -1,26 +1,44 @@
-Alcance: El módulo contempla el desarrollo de la página de inicio con banner promocional, la sección Nosotros con la historia de la clínica en Rancagua y su equipo médico, el blog de consejos para mascotas con su vista de detalle, la página de contacto con la ubicación física integrando un mapa interactivo (Leaflet/Google Maps, requisito 0.1 del caso), el menú de navegación global y el footer persistentes para todo el sitio, y las validaciones en JavaScript del formulario de contacto. La conexión a base de datos y backend queda fuera de este alcance y se abordará en una etapa posterior del proyecto.
+Alcance del Proyecto
+El módulo contempla el desarrollo de la página de inicio con banner promocional, la sección «Nosotros» enfocada en la trayectoria de la clínica en la comuna de Rancagua y su equipo médico, el blog de consejos para el cuidado de mascotas con su respectiva vista de detalle, la página de contacto con la dirección física y un mapa interactivo (Leaflet o Google Maps), la estructuración de un menú de navegación global y un pie de página (footer) persistentes, además de las validaciones en JavaScript para el formulario de consultas. Queda expresamente fuera de este alcance la conexión a bases de datos y al backend, prevista para una fase posterior.
+
 2. Requisitos Funcionales (RF)
-RF-01 — Página de Inicio (Home): El sistema debe mostrar una página principal con un banner promocional de la clínica y accesos rápidos a las demás secciones del sitio (Nosotros, Blog, Contacto).
-RF-02 — Sección Nosotros: El sistema debe presentar una breve descripción y reseña institucional de la veterinaria: su historia en Rancagua desde el año 2009 y la presentación de su equipo médico.
-RF-03 — Blog de Consejos para Mascotas: El sistema debe listar artículos/consejos para el cuidado de mascotas y permitir acceder al detalle completo de cada publicación del blog.
-RF-04 — Página de Contacto con Mapa Interactivo: El sistema debe mostrar la dirección física de la veterinaria en Rancagua e integrar un mapa interactivo (Leaflet o Google Maps) que permita ubicar la clínica geográficamente.
-RF-05 — Formulario de Contacto / Consultas: El sistema debe permitir al usuario enviar una consulta a través de un formulario con nombre, correo y mensaje, validando que los campos obligatorios estén completos antes de habilitar el envío.
-RF-06 — Validación de Correo Institucional/Personal: El sistema debe validar que el correo ingresado en el formulario de contacto tenga un formato válido, aceptando específicamente los dominios @duoc.cl y @gmail.com.
-RF-07 — Menú Global y Footer Persistentes: El sistema debe mostrar un menú de navegación rápido y un pie de página (footer) presentes en todas las vistas del sitio, permitiendo moverse entre Inicio, Nosotros, Blog y Contacto de forma consistente para todo el equipo.
+
+RF-01 — Página de Inicio (Home): El sistema debe desplegar una página principal que incluya un banner promocional de la clínica y accesos directos hacia el resto de las secciones (Nosotros, Blog y Contacto).
+
+RF-02 — Sección Nosotros: El sistema debe presentar una reseña institucional que detalle la historia de la veterinaria en Rancagua desde el año 2009, acompañada de la presentación oficial del equipo médico.
+
+RF-03 — Blog de Consejos para Mascotas: El sistema debe listar artículos y recomendaciones orientadas al bienestar de los animales, otorgando acceso a la vista detallada de cada publicación.
+
+RF-04 — Página de Contacto con Mapa Interactivo: El sistema debe exponer la ubicación física de la clínica en Rancagua integrando un mapa interactivo (Leaflet o Google Maps) para su localización geográfica exacta.
+
+RF-05 — Formulario de Contacto / Consultas: El sistema debe posibilitar el envío de consultas mediante un formulario estructurado con campos de nombre, correo y mensaje, validando que la información obligatoria esté completa previo a habilitar el botón de envío.
+
+RF-06 — Validación de Correo Institucional/Personal: El sistema debe verificar que la dirección de correo electrónico introducida en el formulario cumpla con un formato válido, aceptando de forma específica los dominios @duoc.cl y @gmail.com.
+
+RF-07 — Menú Global y Footer Persistentes: El sistema debe mantener una barra de navegación rápida y un pie de página visibles en todas las vistas del sitio, asegurando el desplazamiento uniforme entre Inicio, Nosotros, Blog y Contacto para todo el equipo.
+
 3. Requisitos No Funcionales (RNF)
-RNF-01 — Diseño de Interfaz y Experiencia (UI/UX): La interfaz debe ser responsiva y mantener una identidad visual consistente en Home, Nosotros, Blog y Contacto, con una navegación simple e intuitiva para cualquier tipo de usuario.
-RNF-02 — Compatibilidad de Navegadores: El sitio debe funcionar correctamente en las versiones más recientes de Google Chrome, Mozilla Firefox y Microsoft Edge, incluyendo la correcta carga del mapa interactivo.
-RNF-03 — Validación en el Lado del Cliente: Las validaciones del formulario de contacto (campos obligatorios y formato de correo) deben ejecutarse en JavaScript en el navegador, entregando retroalimentación inmediata al usuario sin necesidad de recargar la página.
-RNF-04 — Disponibilidad de la Información Institucional: La información de ubicación, historia y contacto de la clínica debe estar disponible de forma pública y sin necesidad de autenticación, a diferencia de los módulos internos del sistema.
-RNF-05 — Preparación para Integración Futura: El módulo se desarrolla actualmente sin conexión a base de datos; los formularios y contenidos deben estructurarse de manera que puedan conectarse más adelante a un backend/API sin rediseñar las vistas.
+
+RNF-01 — Diseño de Interfaz y Experiencia (UI/UX): La interfaz presentará un diseño responsivo que conserve una identidad visual coherente en Home, Nosotros, Blog y Contacto, garantizando una navegación intuitiva para cualquier tipo de usuario.
+
+RNF-02 — Compatibilidad de Navegadores: El sitio asegurará su correcto funcionamiento en las versiones más recientes de Google Chrome, Mozilla Firefox y Microsoft Edge, garantizando la carga óptima del mapa interactivo.
+
+RNF-03 — Validación en el Lado del Cliente: Las restricciones del formulario de contacto (campos obligatorios y dominios de correo permitidos) se procesarán mediante JavaScript directamente en el navegador, entregando respuesta inmediata al usuario sin requerir la recarga de la página.
+
+RNF-04 — Disponibilidad de la Información Institucional: Los datos referentes a la ubicación, historia y canales de contacto de la clínica estarán disponibles de manera pública sin exigir autenticación de usuario.
+
+RNF-05 — Preparación para Integración Futura: El desarrollo se estructurará sin acoplamiento a bases de datos, permitiendo que los contenidos y formularios se enlacen posteriormente a una API o backend sin necesidad de rediseñar las vistas.
+
 4. Arquitectura y Estructura de Archivos
-Tecnologías Frontend: HTML5, CSS3, JavaScript (ES6+), y librería de mapas interactivos (Leaflet o Google Maps API).
-Organización de Archivos del Proyecto (referencial — ajustar a los nombres reales de tu rama):
-●	index.html: página de inicio con banner promocional y accesos rápidos.
-●	nosotros.html: sección Nosotros, con historia de la clínica y equipo médico.
-●	blog.html: listado de consejos/artículos para mascotas.
-●	blog-detalle.html: vista de detalle de una publicación específica del blog.
-●	contacto.html: página de contacto, formulario de consultas y mapa interactivo con la ubicación de la clínica.
-●	css/style.css: hoja de estilos compartida para Home, Nosotros, Blog y Contacto, junto con el menú y footer globales.
-●	js/validaciones.js: lógica de validación del formulario de contacto (campos obligatorios y formato de correo @duoc.cl / @gmail.com).
-●	js/mapa.js: inicialización e integración del mapa interactivo (Leaflet/Google Maps) en la página de Contacto.
+
+Tecnologías Frontend: HTML5, CSS3, JavaScript (ES6+) y librerías de mapas interactivos (Leaflet o Google Maps API).
+
+Organización de Archivos del Proyecto:
+
+index.html: directorio de artículos y consejos para mascotas, vista dedicada a la lectura detallada de una publicación del blog, sección informativa con la historia institucional y el equipo médico, página de inicio dotada de banner promocional y accesos rápidos.
+
+contacto.html: página destinada al formulario de consultas y al mapa interactivo con la ubicación física de la clínica.
+
+css/estilos.css: hoja de estilos unificada para las vistas principales, el menú global y el footer.
+
+js/funcionesJ.js: script encargado de la validación del formulario de contacto (campos obligatorios y filtros para dominios @duoc.cl / @gmail.com) , módulo de inicialización e integración del mapa interactivo en la sección de contacto.

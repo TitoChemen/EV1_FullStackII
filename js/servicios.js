@@ -34,7 +34,17 @@ const listaServicios = [
         categoria: "Preventiva",
         imagen: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?w=500&q=80"
     }
+,
+    {
+        id: 5,
+        nombre: "Peluquería y Estética Canina",
+        descripcion: "Baño sanitizante, corte de pelo según la raza, limpieza de oídos y corte de uñas para dejar al perrito bien facherito.",
+        categoria:"Atención Básica",
+        precio: 18000,
+        imagen: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&w=600&q=80"
+    }
 ];
+
 
 function cargarServicios() {
     const contenedor = document.getElementById("contenedor-productos");
