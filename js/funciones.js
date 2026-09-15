@@ -1,267 +1,244 @@
-* =========================================================
-   VETERINARIA SAN MARCOS — Módulo Usuarios / Auth / RBAC
-   Autor: Oscar — Estilos propios (no depender solo del CDN)
-   ========================================================= */
- 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
- 
-:root{
-  --verde-clinico: #2F6F5E;
-  --verde-clinico-oscuro: #234f43;
-  --verde-suave: #E7F3EE;
-  --crema: #FAF7F2;
-  --ambar: #D98F2B;
-  --ambar-suave: #FBEDD8;
-  --coral: #C2503F;
-  --coral-suave: #F8E4E1;
-  --texto: #1F2A28;
-  --texto-suave: #5B6B67;
-  --borde: #DCE6E1;
-  --blanco: #FFFFFF;
-  --radio: 10px;
-  --sombra: 0 2px 10px rgba(31, 42, 40, 0.06);
-  --sombra-fuerte: 0 8px 24px rgba(31, 42, 40, 0.12);
+function validarRut(rut) {
+    if (!rut) return false;
+    rut = rut.replace(/\./g, '').replace('-', '').trim().toUpperCase();
+    if (rut.length < 8) return false;
+
+    const cuerpo = rut.slice(0, -1);
+    let dv = rut.slice(-1);
+
+    if (!/^[0-9]+$/.test(cuerpo)) return false;
+
+    let suma = 0;
+    let multiplicador = 2;
+
+    for (let i = cuerpo.length - 1; i >= 0; i--) {
+        suma += parseInt(cuerpo.charAt(i)) * multiplicador;
+        multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+    }
+
+    const dvEsperado = 11 - (suma % 11);
+    let dvCalc = dvEsperado === 11 ? '0' : dvEsperado === 10 ? 'K' : dvEsperado.toString();
+
+    return dv === dvCalc;
 }
- 
-*{ box-sizing: border-box; }
- 
-body{
-  background: var(--crema);
-  color: var(--texto);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.55;
+
+
+// ==========================================
+// 2. MÓDULO DE AUTENTICACIÓN Y REGISTRO
+// ==========================================
+
+// Manejar Inicio de Sesión (Login)
+function manejarLogin() {
+    const email = $('#loginEmail').val().trim();
+    const pass = $('#loginPass').val();
+    const contenedorError = $('#resultado-validacion');
+    
+    contenedorError.html('');
+
+    const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    if (!email || !pass) {
+        contenedorError.html('<div class="alert alert-danger"><i class="bi bi-exclamation-triangle"></i> Todos los campos son obligatorios.</div>');
+        return;
+    }
+
+    if (!regexPass.test(pass)) {
+        contenedorError.html('<div class="alert alert-warning"><i class="bi bi-shield-slash"></i> La contraseña debe contener al menos 8 caracteres, letras y números.</div>');
+        return;
+    }
+
+    // Buscar si el usuario fue registrado en localStorage
+    let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_registrados')) || [];
+    let usuarioEncontrado = usuariosGuardados.find(u => u.email === email && u.pass === pass);
+
+    let paginaDestino = 'usuarios.html';
+
+    if (usuarioEncontrado) {
+        if (usuarioEncontrado.rol === 'admin' || usuarioEncontrado.rol === 'Administrador') {
+            paginaDestino = 'admin.html';
+        } else if (usuarioEncontrado.rol === 'veterinario' || usuarioEncontrado.rol === 'Veterinario') {
+            paginaDestino = 'ficha_veterinaria.html';
+        } else {
+            paginaDestino = 'usuarios.html';
+        }
+    } else {
+        // Redirección para cuentas demo
+        if (email === 'admin@sanmarcos.cl') {
+            paginaDestino = 'admin.html';
+        } else if (email === 'veterinario@sanmarcos.cl') {
+            paginaDestino = 'ficha_veterinaria.html';
+        } else if (email === 'recepcion@sanmarcos.cl') {
+            paginaDestino = 'usuarios.html';
+        }
+    }
+
+    // Guardar usuario en sesión activa
+    localStorage.setItem('usuarioSesion', JSON.stringify({ email: email }));
+
+    contenedorError.html('<div class="alert alert-success"><i class="bi bi-check-circle"></i> Acceso exitoso. Redireccionando...</div>');
+
+    setTimeout(() => {
+        window.location.href = paginaDestino;
+    }, 1000);
 }
- 
-h1, h2, h3, h4, h5, .marca{
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  color: var(--verde-clinico-oscuro);
+
+// Validar y Guardar Registro de Usuario
+function validarRegistro() {
+    const nombre = $('#regNombre').val().trim();
+    const rut = $('#regRut').val().trim();
+    const email = $('#regEmail').val().trim();
+    const rol = $('#regRol').val();
+    const pass = $('#regPass').val();
+    const passConfirm = $('#regPassConfirm').val();
+    const contenedor = $('#resultado-validacion-registro');
+
+    contenedor.html('');
+
+    if (!nombre || !rut || !email || !rol || !pass || !passConfirm) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-exclamation-triangle"></i> Todos los campos son obligatorios.</div>');
+        return;
+    }
+
+    if (!validarRut(rut)) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-card-heading"></i> El RUT ingresado no es válido (ejemplo de formato correcto: 12345678-9).</div>');
+        return;
+    }
+
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regexEmail.test(email)) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-envelope-exclamation"></i> Ingrese un formato de correo electrónico válido.</div>');
+        return;
+    }
+
+    const regexPass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    if (!regexPass.test(pass)) {
+        contenedor.html('<div class="alert alert-warning"><i class="bi bi-shield-slash"></i> La contraseña debe tener al menos 8 caracteres, incluyendo letras y números.</div>');
+        return;
+    }
+
+    if (pass !== passConfirm) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-lock"></i> Las contraseñas no coinciden.</div>');
+        return;
+    }
+
+    // Guardar en localStorage
+    let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_registrados')) || [];
+    
+    if (usuariosGuardados.some(u => u.email === email)) {
+        contenedor.html('<div class="alert alert-warning"><i class="bi bi-exclamation-triangle"></i> El correo ya se encuentra registrado.</div>');
+        return;
+    }
+
+    const nuevoUsuario = { nombre, rut, email, rol, pass };
+    usuariosGuardados.push(nuevoUsuario);
+    localStorage.setItem('usuarios_registrados', JSON.stringify(usuariosGuardados));
+
+    contenedor.html('<div class="alert alert-success"><i class="bi bi-check-circle"></i> Registro exitoso. Redirigiendo al inicio de sesión...</div>');
+
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 1500);
 }
- 
-a{ color: var(--verde-clinico); text-decoration: none; }
-a:hover{ color: var(--verde-clinico-oscuro); text-decoration: underline; }
- 
-/* ---------- Barra superior de marca ---------- */
-.franja-marca{
-  background: var(--verde-clinico);
-  color: var(--blanco);
-  padding: .4rem 0;
-  font-size: .85rem;
-  letter-spacing: .02em;
+
+function resetearRegistro() {
+    if ($('#formularioRegistro').length) {
+        $('#formularioRegistro')[0].reset();
+        $('#resultado-validacion-registro').html('');
+    }
 }
-.franja-marca a{ color: var(--blanco); opacity: .9; }
- 
-/* ---------- Navbar propia (colapsable / hamburguesa) ---------- */
-.navbar-sanmarcos{
-  background: var(--blanco);
-  border-bottom: 1px solid var(--borde);
-  box-shadow: var(--sombra);
+
+
+// ==========================================
+// 3. MÓDULO ADMINISTRACIÓN Y FICHAS CLÍNICAS
+// ==========================================
+
+function guardarFichaClinica() {
+    const rut = $('#rutDueno').val();
+    const mascota = $('#nombreMascota').val().trim();
+    const dosis = parseFloat($('#dosisMedicamento').val());
+    const fechaVencVal = $('#fechaVencimiento').val();
+    const contenedor = $('#resultado-validacion-ficha');
+
+    contenedor.html('');
+
+    if (!validarRut(rut)) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-card-heading"></i> El RUT del dueño ingresado no es válido.</div>');
+        return;
+    }
+
+    if (!mascota) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-exclamation-circle"></i> Debe ingresar el nombre de la mascota.</div>');
+        return;
+    }
+
+    if (isNaN(dosis) || dosis <= 0) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-capsule"></i> La dosis del medicamento debe ser un valor numérico positivo.</div>');
+        return;
+    }
+
+    if (!fechaVencVal) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-calendar-x"></i> Debe seleccionar una fecha de vencimiento.</div>');
+        return;
+    }
+
+    const fechaVenc = new Date(fechaVencVal);
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+
+    if (fechaVenc <= hoy) {
+        contenedor.html('<div class="alert alert-danger"><i class="bi bi-calendar-exclamation"></i> La fecha de vencimiento de la vacuna debe ser posterior a la fecha actual.</div>');
+        return;
+    }
+
+    contenedor.html('<div class="alert alert-success"><i class="bi bi-check-circle"></i> Ficha clínica registrada correctamente.</div>');
 }
-.navbar-sanmarcos .navbar-brand{
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  color: var(--verde-clinico-oscuro);
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-.navbar-sanmarcos .navbar-brand .material-icons{ color: var(--verde-clinico); }
- 
-.navbar-sanmarcos .nav-link{
-  color: var(--texto);
-  font-weight: 500;
-  border-radius: 8px;
-  padding: .5rem .9rem;
-  margin: 0 .15rem;
-}
-.navbar-sanmarcos .nav-link.active,
-.navbar-sanmarcos .nav-link:hover{
-  background: var(--verde-suave);
-  color: var(--verde-clinico-oscuro);
-}
- 
-.chip-rol{
-  background: var(--verde-suave);
-  color: var(--verde-clinico-oscuro);
-  border: 1px solid var(--verde-clinico);
-  border-radius: 999px;
-  padding: .25rem .75rem;
-  font-size: .78rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
- 
-/* ---------- Tarjetas ---------- */
-.card{
-  border: 1px solid var(--borde);
-  border-radius: var(--radio);
-  box-shadow: var(--sombra);
-}
-.card.destacada{ border-top: 4px solid var(--verde-clinico); }
- 
-.card-auth{
-  max-width: 460px;
-  margin: 2.5rem auto;
-}
-.card-auth .icono-auth{
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: var(--verde-suave);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1rem auto;
-}
-.card-auth .icono-auth i{ font-size: 28px; color: var(--verde-clinico); }
- 
-/* ---------- Formularios ---------- */
-.form-label{ font-weight: 600; color: var(--texto); font-size: .9rem; }
-.form-control, .form-select{
-  border-radius: 8px;
-  border: 1px solid var(--borde);
-  padding: .55rem .8rem;
-}
-.form-control:focus, .form-select:focus{
-  border-color: var(--verde-clinico);
-  box-shadow: 0 0 0 .2rem rgba(47, 111, 94, .15);
-}
-.form-text-ayuda{ font-size: .8rem; color: var(--texto-suave); }
- 
-.form-control.is-invalid, .form-select.is-invalid{
-  border-color: var(--coral);
-}
-.form-control.is-valid, .form-select.is-valid{
-  border-color: var(--verde-clinico);
-}
-.invalid-feedback{ color: var(--coral); }
- 
-/* ---------- Botones ---------- */
-.btn-primario{
-  background: var(--verde-clinico);
-  border: 1px solid var(--verde-clinico);
-  color: var(--blanco);
-  font-weight: 600;
-  border-radius: 8px;
-  padding: .6rem 1.3rem;
-}
-.btn-primario:hover{ background: var(--verde-clinico-oscuro); color: var(--blanco); }
- 
-.btn-secundario{
-  background: var(--blanco);
-  border: 1px solid var(--borde);
-  color: var(--texto);
-  font-weight: 500;
-  border-radius: 8px;
-  padding: .6rem 1.3rem;
-}
-.btn-secundario:hover{ background: var(--verde-suave); }
- 
-.btn-peligro-out{
-  background: transparent;
-  border: 1px solid var(--coral);
-  color: var(--coral);
-  border-radius: 8px;
-  font-weight: 500;
-}
-.btn-peligro-out:hover{ background: var(--coral-suave); color: var(--coral); }
- 
-/* ---------- Alertas de validación (contenedor de resultado) ---------- */
-.aviso{
-  border-radius: 8px;
-  padding: .75rem 1rem;
-  margin-top: .9rem;
-  font-size: .92rem;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-.aviso-error{ background: var(--coral-suave); color: #7a2e22; border: 1px solid #e6b6ac; }
-.aviso-exito{ background: var(--verde-suave); color: var(--verde-clinico-oscuro); border: 1px solid #b6d9cc; }
-.aviso-alerta{ background: var(--ambar-suave); color: #7a520f; border: 1px solid #edcd93; }
- 
-/* ---------- Tablas ---------- */
-.tabla-sanmarcos thead{
-  background: var(--verde-clinico-oscuro);
-  color: var(--blanco);
-}
-.tabla-sanmarcos thead th{ font-weight: 600; font-size: .85rem; border: none; }
-.tabla-sanmarcos tbody tr:hover{ background: var(--verde-suave); }
-.tabla-sanmarcos td, .tabla-sanmarcos th{ vertical-align: middle; }
- 
-/* ---------- Badges de estado (citas / vacunas) ---------- */
-.badge-estado{
-  font-size: .75rem;
-  font-weight: 600;
-  padding: .4em .7em;
-  border-radius: 999px;
-}
-.badge-pendiente{ background: var(--ambar-suave); color: #7a520f; }
-.badge-confirmada{ background: var(--verde-suave); color: var(--verde-clinico-oscuro); }
-.badge-reagendada{ background: #E4ECFB; color: #2b4a8f; }
-.badge-vigente{ background: var(--verde-suave); color: var(--verde-clinico-oscuro); }
-.badge-por-vencer{ background: var(--ambar-suave); color: #7a520f; }
-.badge-vencida{ background: var(--coral-suave); color: #7a2e22; }
-.badge-activo{ background: var(--verde-suave); color: var(--verde-clinico-oscuro); }
-.badge-inactivo{ background: #EDEDED; color: #666; }
- 
-/* ---------- Panel lateral de paciente seleccionado ---------- */
-.panel-paciente{
-  background: var(--verde-suave);
-  border: 1px solid #cfe6dc;
-  border-radius: var(--radio);
-  padding: 1.1rem;
-}
-.panel-paciente .nombre-mascota{
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--verde-clinico-oscuro);
-}
- 
-/* ---------- Encabezado de sección ---------- */
-.encabezado-seccion{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: .5rem;
-  margin-bottom: 1rem;
-}
-.encabezado-seccion h4{ margin: 0; }
-.etiqueta-modulo{
-  background: var(--verde-clinico-oscuro);
-  color: var(--blanco);
-  border-radius: 999px;
-  padding: .3rem .8rem;
-  font-size: .75rem;
-  font-weight: 600;
-}
- 
-/* ---------- Footer ---------- */
-footer.pie-sanmarcos{
-  border-top: 1px solid var(--borde);
-  color: var(--texto-suave);
-  font-size: .85rem;
-}
- 
-/* ---------- Estados vacíos ---------- */
-.estado-vacio{
-  text-align: center;
-  padding: 2rem 1rem;
-  color: var(--texto-suave);
-}
-.estado-vacio i{ font-size: 2rem; color: var(--borde); display: block; margin-bottom: .5rem; }
- 
-/* ---------- Responsive: 360px / 768px / 1280px ---------- */
-@media (max-width: 575.98px){
-  .card-auth{ margin: 1rem auto; }
-  h1{ font-size: 1.4rem; }
-  .encabezado-seccion{ flex-direction: column; align-items: flex-start; }
-  .tabla-sanmarcos{ font-size: .82rem; }
-}
- 
-@media (min-width: 576px) and (max-width: 991.98px){
-  .card-auth{ max-width: 520px; }
-}
- 
-@media (min-width: 1280px){
-  .contenedor-ancho{ max-width: 1180px; margin: 0 auto; }
-}
+
+// Cargar datos al cargar el documento
+$(document).ready(function() {
+    // Cargar Citas de Ejemplo
+    if ($('#tablaCitas').length) {
+        const citasEjemplo = [
+            { id: 1, dueno: "Juan Pérez (11.111.111-1)", mascota: "Fuchy", fecha: "2026-09-10 10:00", estado: "Pendiente" },
+            { id: 2, dueno: "María Soto (22.222.222-2)", mascota: "Pelusa", fecha: "2026-09-10 11:30", estado: "Pendiente" }
+        ];
+
+        let html = '';
+        citasEjemplo.forEach(c => {
+            html += `
+                <tr>
+                    <td>${c.dueno}</td>
+                    <td>${c.mascota}</td>
+                    <td>${c.fecha}</td>
+                    <td><span class="badge bg-warning text-dark">${c.estado}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-success" onclick="alert('Cita confirmada')"><i class="bi bi-check-circle"></i></button>
+                        <button class="btn btn-sm btn-warning" onclick="alert('Reagendando cita...')"><i class="bi bi-clock-history"></i></button>
+                    </td>
+                </tr>
+            `;
+        });
+        $('#tablaCitas').html(html);
+    }
+
+    // Cargar Usuarios Registrados
+    if ($('#tablaUsuarios').length) {
+        let usuariosGuardados = JSON.parse(localStorage.getItem('usuarios_registrados')) || [];
+        let htmlUsuarios = '';
+
+        if (usuariosGuardados.length === 0) {
+            htmlUsuarios = '<tr><td colspan="4" class="text-center text-muted">No hay usuarios registrados aún.</td></tr>';
+        } else {
+            usuariosGuardados.forEach(u => {
+                htmlUsuarios += `
+                    <tr>
+                        <td>${u.nombre}</td>
+                        <td>${u.rut}</td>
+                        <td>${u.email}</td>
+                        <td><span class="badge bg-info text-dark">${u.rol}</span></td>
+                    </tr>
+                `;
+            });
+        }
+        $('#tablaUsuarios').html(htmlUsuarios);
+    }
+});
